@@ -9,18 +9,18 @@
   <h1>フォーム > 入力</h1>
   <form action="issue17_confirm.html" method="post" action="">  
     <fieldset>
-      <legend>フォーム </legend>
+      <legend>フォーム</legend>
       <label for="name"> 名前：</label>
-      <input type="text" name="name" size="10">
+      <input type="text" name="name" size="10" id="name">
       <input type="text" name="name" size="10"><br>
       <br>
       <label for="sex">性別：</label>
-      男性<input type="radio" name="sex" value="male">
-      女性<input type="radio" name="sex" value="female"><br>
+      男性<input type="radio" name="sex" value="male" id="sex">
+      女性<input type="radio" name="sex" value="female" id="sex"><br>
       <br>  
-      <label>郵便番号：</label>
-      <input type="text" name="postcode" size="3">
-      - <input type="text" name="postcode" size="4"><br>
+      <label for="postcode">郵便番号：</label>
+      <input type="text" name="postcode" size="3" id="postcode">
+      - <input type="text" name="postcode" size="4" id="postcode"><br>
       <br>
       <label for="prefecture">都道府県：</label>
       <select name="prefecture">
@@ -31,17 +31,17 @@
       </select><br>
       <br>    
       <label for="mailaddress">メールアドレス：</label>
-      <input type="text" name="mailaddress" size="40"><br>
+      <input type="text" name="mailaddress" size="40" id="mailaddress"><br>
       <br>
       <label for="hobby">趣味：</label>
-      <input type="checkbox" name="music" value="音楽鑑賞">音楽鑑賞
-      <input type="checkbox" name="movie" value="映画鑑賞">映画鑑賞
-      <input type="checkbox" name="other" value="other">その他
-      <input type="text" name="hobby" size="20"><br>
+      <input type="checkbox" name="music" value="音楽鑑賞" id="hobby">音楽鑑賞
+      <input type="checkbox" name="movie" value="映画鑑賞" id="hobby">映画鑑賞
+      <input type="checkbox" name="other" value="other" id="hobby">その他
+      <input type="text" name="hobby" size="20" id="hobby"><br>
       <br>
       <label for="opinion">ご意見：</label>
-          <textarea name="opinion" rows="2" cols="20"></textarea><br>
-      <input type="submit" value="確認"><br>
+          <textarea name="opinion" rows="2" cols="20" id="opinion"></textarea><br>
+      <input type="submit" value="確認" id="opinion"><br>
     </fieldset>
   </form> 
   <p>Copyright 2014</p>
