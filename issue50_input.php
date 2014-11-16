@@ -8,7 +8,8 @@
 <body>
 <?php
 $lastnameErr = $firstnameErr = $genderErr = $postcodeErr = $prefectureErr = $posetcodeErr = $mailaddressErr = $otherErr = $opinionErr ="";
-$lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond  = $prefecture = $posetcode = $mailaddress = $other = $opinion ="";
+$lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond = $postcodeSecond  = $prefecture = $posetcode = $mailaddress = $other = $opinion ="";
+$hobbys[0] = $hobbys[1] = $hobbys[2] = $hobbys[3] ="";
 $errorCount = 8;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["lastname"])) {
@@ -60,12 +61,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorCount--;
     }
 
-    $hobby = $_POST["hobbys"]; 
-    if (empty($hobby[2]) == 0 && empty($hobby[3])) {
+    $hobbys = $_POST["hobbys"]; 
+    for ($i=0; $i<=3; $i++){
+        if (empty($hobbys[$i]) == 1) {
+            $hobbys[$i] ="";
+        }
+    }
+    if (empty($hobbys[2]) == 0 && empty($hobbys[3])) {
         $otherErr = "その他の詳細を入力してください．";
         $errorCount++;
     } else {
-        $other  = $hobby[3];
+        $other  = $hobbys[3];
         $errorCount--;
     }
     
@@ -75,11 +81,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $opinion = $_POST["opinion"];
     }
 }
-echo $postcodeSecond;
-?>
+
+
+$_POST += array('errorCount' => $errorCount);
+echo $errorCount;
+//if ($errorCount==0) {
+ //   header("http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/issue50_confirm.php");
+//}
+  //  else{
+   //     header("http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/issue50_input.php");
+   // }
+//?>
  <h1>フォーム > 入力</h1>
  <form action="issue50_confirm.php" method="POST">
    <fieldset>
+      <input type="hidden" name="errorCount" value="<?php echo $errorCount?>">
       <legend>フォーム</legend>
       <label for="name"> 名前：</label>
       <input type="text" name="lastname" size="10" id="name" value="<?php echo $lastname;?>">
@@ -92,8 +108,8 @@ echo $postcodeSecond;
       </font> 
       <br>
       <label for="male">性別：</label>
-      男性<input type="radio" name="gender" value="男" id="male">
-      女性<input type="radio" name="gender" value="女" id="gender">
+      男性<input type="radio" name="gender" value="男" id="male" <?php if ($gender == "男") {echo 'checked';}?>>
+      女性<input type="radio" name="gender" value="女" id="gender" <?php if ($gender == "女") {echo 'checked';}?>>
       <font color="#ff0000">
         <?php echo $genderErr;?>
       </font> 
@@ -123,9 +139,9 @@ echo $postcodeSecond;
       </font> 
       <br>
       <label for="music">趣味：</label>
-      <input type="checkbox" name="hobbys[0]" value="音楽鑑賞" id="music" <?php if (empty($hobby[0]) == 0) {echo "checked";} ?>>音楽鑑賞
-      <input type="checkbox" name="hobbys[1]" value="映画鑑賞" id="movie" <?php if (empty($hobby[1]) == 0) {echo "checked";} ?>>映画鑑賞
-      <input type="checkbox" name="hobbys[2]" value="その他" id="other"  <?php if (empty($hobby[2]) == 0) {echo "checked";} ?>>その他
+      <input type="checkbox" name="hobbys[0]" value="音楽鑑賞" id="music" <?php if ($hobbys[0] == "音楽鑑賞") {echo 'checked';} ?>>音楽鑑賞
+      <input type="checkbox" name="hobbys[1]" value="映画鑑賞" id="movie" <?php  if ($hobbys[1] == "映画鑑賞") {echo 'checked';} ?>>映画鑑賞
+      <input type="checkbox" name="hobbys[2]" value="その他" id="other"  <?php if ($hobbys[2] == "その他") {echo 'checked';} ?>>その他
       <input type="text" name="hobbys[3]" size="20" id="othertext" <?php echo "value=\"$other\""; ?>>
       <font color="#ff0000">
         <?php echo $otherErr;?>
@@ -139,4 +155,3 @@ echo $postcodeSecond;
   <p>Copyright 2014</p>
 </body>
 </html>
-
