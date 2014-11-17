@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>  
 <head>
@@ -10,55 +14,56 @@
 $lastnameErr = $firstnameErr = $genderErr = $postcodeErr = $prefectureErr = $posetcodeErr = $mailaddressErr = $otherErr = $opinionErr ="";
 $lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond = $postcodeSecond  = $prefecture = $posetcode = $mailaddress = $other = $opinion ="";
 $hobbys[0] = $hobbys[1] = $hobbys[2] = $hobbys[3] ="";
-$errorCount = 8;
+$_SESSION['errorCount']=8;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["lastname"])) {
         $lastnameErr = "姓を入力して下さい．";
     } else {
         $lastname = $_POST["lastname"];
-        $errorCount--;
+        $_SESSION['errorCount']--;
     }
 
     if (empty($_POST["firstname"])) {
         $firstnameErr = "名を入力して下さい．";
     } else {
         $firstname = $_POST["firstname"];
-        $errorCount--;
+        $_SESSION['errorCount']--;
     }
 
     if (empty($_POST["gender"])) {
         $genderErr = "性別を選択して下さい．";
     } else {
         $gender = $_POST["gender"];
-        $errorCount--;
+        $_SESSION['errorCount']--;
     }
 
     if (empty($_POST["postcodeFirst"])) {
         $postcodeErr = "郵便番号を入力してください．";
     } else {
         $postcodeFirst  = $_POST["postcodeFirst"];
-        $errorCount--;
+        $_SESSION['errorCount']--;
     }
 
     if (empty($_POST["postcodeSecond"])) {
         $postcodeErr = "郵便番号を入力してください．";
     } else {
         $postcodeSecond  = $_POST["postcodeSecond"];
-        $errorCount--;
+        $_SESSION['errorCount']--;
     }
 
     if (($_POST["prefecture"] == "--")) {
         $prefectureErr = "都道府県を選択してください．";
     } else {
         $prefecture  = $_POST["prefecture"];
-        $errorCount--;
+        $_SESSION['errorCount']--;
     }
 
     if (empty($_POST["mailaddress"])) {
         $mailaddressErr = "メールアドレスを入力してください．";
     } else {
         $mailaddress  = $_POST["mailaddress"];
-        $errorCount--;
+        $_SESSION['errorCount']--;
     }
 
     $hobbys = $_POST["hobbys"]; 
@@ -69,10 +74,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (empty($hobbys[2]) == 0 && empty($hobbys[3])) {
         $otherErr = "その他の詳細を入力してください．";
-        $errorCount++;
+        $_SESSION['errorCount']--;
     } else {
         $other  = $hobbys[3];
-        $errorCount--;
+        $_SESSION['errorCount']--;
     }
     
     if (empty($_POST["opinion"])) {
@@ -80,22 +85,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $opinion = $_POST["opinion"];
     }
+
 }
-
-
-$_POST += array('errorCount' => $errorCount);
-echo $errorCount;
-//if ($errorCount==0) {
- //   header("http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/issue50_confirm.php");
-//}
-  //  else{
-   //     header("http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/issue50_input.php");
-   // }
-//?>
+?>
  <h1>フォーム > 入力</h1>
  <form action="issue50_confirm.php" method="POST">
    <fieldset>
-      <input type="hidden" name="errorCount" value="<?php echo $errorCount?>">
       <legend>フォーム</legend>
       <label for="name"> 名前：</label>
       <input type="text" name="lastname" size="10" id="name" value="<?php echo $lastname;?>">

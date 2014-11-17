@@ -1,7 +1,78 @@
 <?php
-  echo $_POST["errorCount"];
-  if ($_POST["errorCount"] != 0 ) {
-      header("Location: http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/issue50_input.php");
+session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST["lastname"])) {
+        $lastnameErr = "姓を入力して下さい．";
+    } else {
+        $lastname = $_POST["lastname"];
+        $_SESSION['errorCount']--;
+    }
+
+    if (empty($_POST["firstname"])) {
+        $firstnameErr = "名を入力して下さい．";
+    } else {
+        $firstname = $_POST["firstname"];
+        $_SESSION['errorCount']--;
+    }
+
+    if (empty($_POST["gender"])) {
+        $genderErr = "性別を選択して下さい．";
+    } else {
+        $gender = $_POST["gender"];
+        $_SESSION['errorCount']--;
+    }
+
+    if (empty($_POST["postcodeFirst"])) {
+        $postcodeErr = "郵便番号を入力してください．";
+    } else {
+        $postcodeFirst  = $_POST["postcodeFirst"];
+        $_SESSION['errorCount']--;
+    }
+
+    if (empty($_POST["postcodeSecond"])) {
+        $postcodeErr = "郵便番号を入力してください．";
+    } else {
+        $postcodeSecond  = $_POST["postcodeSecond"];
+        $_SESSION['errorCount']--;
+    }
+
+    if (($_POST["prefecture"] == "--")) {
+        $prefectureErr = "都道府県を選択してください．";
+    } else {
+        $prefecture  = $_POST["prefecture"];
+        $_SESSION['errorCount']--;
+    }
+
+    if (empty($_POST["mailaddress"])) {
+        $mailaddressErr = "メールアドレスを入力してください．";
+    } else {
+        $mailaddress  = $_POST["mailaddress"];
+        $_SESSION['errorCount']--;
+    }
+
+    $hobbys = $_POST["hobbys"]; 
+    for ($i=0; $i<=3; $i++){
+        if (empty($hobbys[$i]) == 1) {
+            $hobbys[$i] ="";
+        }
+    }
+    if (empty($hobbys[2]) == 0 && empty($hobbys[3])) {
+        $otherErr = "その他の詳細を入力してください．";
+        $_SESSION['errorCount']--;
+    } else {
+        $other  = $hobbys[3];
+        $_SESSION['errorCount']--;
+    }
+    
+    if (empty($_POST["opinion"])) {
+        $opinionErr = "名を入力して下さい．";
+    } else {
+        $opinion = $_POST["opinion"];
+    }
+
+}
+if ($_SESSION["errorCount"] != 0 ) {
+    header("Location: http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/issue50_input.php");
   } 
 ?>
 <!DOCTYPE html>
