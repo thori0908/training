@@ -1,77 +1,92 @@
 <?php
 session_start();
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["lastname"])) {
-        $lastnameErr = "姓を入力して下さい．";
-    } else {
-        $lastname = $_POST["lastname"];
-        $_SESSION['errorCount']--;
-    }
 
-    if (empty($_POST["firstname"])) {
-        $firstnameErr = "名を入力して下さい．";
-    } else {
-        $firstname = $_POST["firstname"];
-        $_SESSION['errorCount']--;
-    }
+$lastnameFlag = 0;
+$firstnameFlag =0;
+$genderFlag = 0;
+$postcodeFirstFlag  = 0;
+$postcodeSecondFlag  = 0;
+$prefectureFlag  = 0;
+$mailaddressFlag  = 0;
 
-    if (empty($_POST["gender"])) {
-        $genderErr = "性別を選択して下さい．";
-    } else {
-        $gender = $_POST["gender"];
-        $_SESSION['errorCount']--;
-    }
-
-    if (empty($_POST["postcodeFirst"])) {
-        $postcodeErr = "郵便番号を入力してください．";
-    } else {
-        $postcodeFirst  = $_POST["postcodeFirst"];
-        $_SESSION['errorCount']--;
-    }
-
-    if (empty($_POST["postcodeSecond"])) {
-        $postcodeErr = "郵便番号を入力してください．";
-    } else {
-        $postcodeSecond  = $_POST["postcodeSecond"];
-        $_SESSION['errorCount']--;
-    }
-
-    if (($_POST["prefecture"] == "--")) {
-        $prefectureErr = "都道府県を選択してください．";
-    } else {
-        $prefecture  = $_POST["prefecture"];
-        $_SESSION['errorCount']--;
-    }
-
-    if (empty($_POST["mailaddress"])) {
-        $mailaddressErr = "メールアドレスを入力してください．";
-    } else {
-        $mailaddress  = $_POST["mailaddress"];
-        $_SESSION['errorCount']--;
-    }
-
-    $hobbys = $_POST["hobbys"]; 
-    for ($i=0; $i<=3; $i++){
-        if (empty($hobbys[$i]) == 1) {
-            $hobbys[$i] ="";
-        }
-    }
-    if (empty($hobbys[2]) == 0 && empty($hobbys[3])) {
-        $otherErr = "その他の詳細を入力してください．";
-        $_SESSION['errorCount']--;
-    } else {
-        $other  = $hobbys[3];
-        $_SESSION['errorCount']--;
-    }
-    
-    if (empty($_POST["opinion"])) {
-        $opinionErr = "名を入力して下さい．";
-    } else {
-        $opinion = $_POST["opinion"];
-    }
-
+if (empty($_POST["lastname"])) {
+} else {
+    $lastnameFlag = 1;
+    $lastname = $_POST["lastname"];
+    $_SESSION["lastname"] = $_POST["lastname"];
 }
-if ($_SESSION["errorCount"] != 0 ) {
+
+if (empty($_POST["firstname"])) {
+} else {
+    $firstnameFlag = 1;
+    $firstname = $_POST["firstname"];
+    $_SESSION["firstname"] = $_POST["firstname"];
+}
+
+if (empty($_POST["gender"])) {
+} else {
+    $genderFlag = 1;
+    $gender = $_POST["gender"];
+    $_SESSION["gender"] = $_POST["gender"];
+}
+
+if (empty($_POST["postcodeFirst"])) {
+} else {
+    $postcodeFirstFlag = 1;
+    $postcodeFirst  = $_POST["postcodeFirst"];
+    $_SESSION["postcodeFirst"] = $_POST["postcodeFirst"];
+}
+
+if (empty($_POST["postcodeSecond"])) {
+} else {
+    $postcodeSecondFlag = 1;
+    $postcodeSecond  = $_POST["postcodeSecond"];
+    $_SESSION["postcodeSecond"] = $_POST["postcodeSecond"];
+}
+
+if (($_POST["prefecture"] == "--")) {
+} else {
+    $prefectureFlag = 1; $prefecture  = $_POST["prefecture"]; $_SESSION["prefecture"] = $_POST["prefecture"]; }
+
+if (empty($_POST["mailaddress"])) {
+} else {
+    $mailaddressFlag = 1;
+    $mailaddress  = $_POST["mailaddress"];
+    $_SESSION["mailaddress"] = $_POST["mailaddress"];
+}
+
+if (empty($_POST["hobbyMusic"])) {
+} else {
+    $hobbyMusic  = $_POST["hobbyMusic"];
+    $_SESSION["hobbyMusic"] = $_POST["hobbyMusic"];
+}
+   
+if (empty($_POST["hobbyMovie"])) {
+} else {
+    $hobbyMovie  = $_POST["hobbyMovie"];
+    $_SESSION["hobbyMovie"] = $_POST["hobbyMovie"];
+}
+
+if (empty($_POST["hobbyOther"])) {
+} else {
+    $hobbyOther  = $_POST["hobbyOther"];
+    $_SESSION["hobbyOther"] = $_POST["hobbyOther"];
+}
+
+if (empty($_POST["hobbyOtherText"])) {
+} else {
+    $hobbyOtherText  = $_POST["hobbyOtherText"];
+    $_SESSION["hobbyOtherText"] = $_POST["hobbyOtherText"];
+}
+
+if (empty($_POST["opinion"])) {
+} else {
+    $opinion = $_POST["opinion"];
+    $_SESSION["opinion"] = $_POST["opinion"];
+}
+$errorFlag = 1 - $lastnameFlag * $firstnameFlag * $genderFlag * $postcodeFirstFlag * $postcodeSecondFlag * $prefectureFlag* $mailaddressFlag ;  
+
+if ($errorFlag == 1 ) {
     header("Location: http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/issue50_input.php");
   } 
 ?>

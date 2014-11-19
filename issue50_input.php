@@ -13,80 +13,67 @@ session_start();
 <?php
 $lastnameErr = $firstnameErr = $genderErr = $postcodeErr = $prefectureErr = $posetcodeErr = $mailaddressErr = $otherErr = $opinionErr ="";
 $lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond = $postcodeSecond  = $prefecture = $posetcode = $mailaddress = $other = $opinion ="";
-$hobbys[0] = $hobbys[1] = $hobbys[2] = $hobbys[3] ="";
-$_SESSION['errorCount']=8;
+$hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText ="";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["lastname"])) {
-        $lastnameErr = "姓を入力して下さい．";
-    } else {
-        $lastname = $_POST["lastname"];
-        $_SESSION['errorCount']--;
-    }
+if (empty($_SESSION["lastname"]) == 0) {$lastname = $_SESSION["lastname"];}
+if (empty($_SESSION["firstname"])==0) {$firstname = $_SESSION["firstname"];}
+if (empty($_SESSION["gender"])==0) {$gender = $_SESSION["gender"];}
+if (empty($_SESSION["postcodeFirst"])==0) {$postcodeFirst  = $_SESSION["postcodeFirst"];}
+if (empty($_SESSION["postcodeSecond"])==0) {$postcodeSecond  = $_SESSION["postcodeSecond"];}
+if (empty($_SESSION["prefecture"])==0) {$prefecture  = $_SESSION["prefecture"];}
+if (empty($_SESSION["mailaddress"])==0) {$mailaddress  = $_SESSION["mailaddress"];}
+if (empty($_SESSION["opinion"])==0) {$opinion =  $_SESSION["opinion"];}
+if (empty($_SESSION["hobbyMusic"])==0) {$hobbyMusic =  $_SESSION["hobbyMusic"];}
+if (empty($_SESSION["hobbyMovie"])==0) {$hobbyMovie =  $_SESSION["hobbyMovie"];}
+if (empty($_SESSION["hobbyOther"])==0) {$hobbyOther =  $_SESSION["hobbyOther"];}
+if (empty($_SESSION["hobbyOtherText"])==0) {$hobbyOtherText =  $_SESSION["hobbyOtherText"];}
 
-    if (empty($_POST["firstname"])) {
-        $firstnameErr = "名を入力して下さい．";
-    } else {
-        $firstname = $_POST["firstname"];
-        $_SESSION['errorCount']--;
-    }
-
-    if (empty($_POST["gender"])) {
-        $genderErr = "性別を選択して下さい．";
-    } else {
-        $gender = $_POST["gender"];
-        $_SESSION['errorCount']--;
-    }
-
-    if (empty($_POST["postcodeFirst"])) {
-        $postcodeErr = "郵便番号を入力してください．";
-    } else {
-        $postcodeFirst  = $_POST["postcodeFirst"];
-        $_SESSION['errorCount']--;
-    }
-
-    if (empty($_POST["postcodeSecond"])) {
-        $postcodeErr = "郵便番号を入力してください．";
-    } else {
-        $postcodeSecond  = $_POST["postcodeSecond"];
-        $_SESSION['errorCount']--;
-    }
-
-    if (($_POST["prefecture"] == "--")) {
-        $prefectureErr = "都道府県を選択してください．";
-    } else {
-        $prefecture  = $_POST["prefecture"];
-        $_SESSION['errorCount']--;
-    }
-
-    if (empty($_POST["mailaddress"])) {
-        $mailaddressErr = "メールアドレスを入力してください．";
-    } else {
-        $mailaddress  = $_POST["mailaddress"];
-        $_SESSION['errorCount']--;
-    }
-
-    $hobbys = $_POST["hobbys"]; 
-    for ($i=0; $i<=3; $i++){
-        if (empty($hobbys[$i]) == 1) {
-            $hobbys[$i] ="";
-        }
-    }
-    if (empty($hobbys[2]) == 0 && empty($hobbys[3])) {
-        $otherErr = "その他の詳細を入力してください．";
-        $_SESSION['errorCount']--;
-    } else {
-        $other  = $hobbys[3];
-        $_SESSION['errorCount']--;
-    }
-    
-    if (empty($_POST["opinion"])) {
-        $opinionErr = "名を入力して下さい．";
-    } else {
-        $opinion = $_POST["opinion"];
-    }
-
+if (empty($lastname)) {
+    $lastnameErr = "姓を入力して下さい．";
+} else {
 }
+
+if (empty($firstname)) {
+    $firstnameErr = "名を入力して下さい．";
+} else {
+}
+
+if (empty($gender)) {
+    $genderErr = "性別を選択して下さい．";
+} else {
+}
+
+if (empty($postcodeFirst)) {
+    $postcodeErr = "郵便番号を入力してください．";
+} else {
+}
+
+if (empty($postcodeSecond)) {
+    $postcodeErr = "郵便番号を入力してください．";
+} else {
+}
+
+if (($prefecture == "--")) {
+    $prefectureErr = "都道府県を選択してください．";
+} else {
+}
+
+if (empty($mailaddress)) {
+    $mailaddressErr = "メールアドレスを入力してください．";
+} else {
+}
+
+if (empty($hobbyOther) == 0 && empty($hobbyOtherText)) {
+    $otherErr = "その他の詳細を入力してください．";
+} else {
+}
+
+if (empty($opinion)) {
+    $opinionErr = "名を入力して下さい．";
+} else {
+    $opinion = $_SESSION["opinion"];
+}
+
 ?>
  <h1>フォーム > 入力</h1>
  <form action="issue50_confirm.php" method="POST">
@@ -111,9 +98,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <br>  
       <label for="postcode">郵便番号：</label>
       <input type="text" name="postcodeFirst" size="3" id="postcode" <?php echo "value=\"$postcodeFirst\""; ?>>
-      - <input type="text" name="postcodeSecond" size="4" id="postcode" <?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo "value=\"$postcodeSecond\"";} ?>>
+      - <input type="text" name="postcodeSecond" size="4" id="postcode" <?php echo "value=\"$postcodeSecond\""; ?>>
       <font color="#ff0000">
-        <?php if ($_SERVER["REQUEST_METHOD"] == "POST") {echo $postcodeErr;} ?>
+        <?php echo $postcodeErr; ?>
       </font> 
       <br>
       <label for="prefecture">都道府県：</label>
@@ -134,10 +121,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </font> 
       <br>
       <label for="music">趣味：</label>
-      <input type="checkbox" name="hobbys[0]" value="音楽鑑賞" id="music" <?php if ($hobbys[0] == "音楽鑑賞") {echo 'checked';} ?>>音楽鑑賞
-      <input type="checkbox" name="hobbys[1]" value="映画鑑賞" id="movie" <?php  if ($hobbys[1] == "映画鑑賞") {echo 'checked';} ?>>映画鑑賞
-      <input type="checkbox" name="hobbys[2]" value="その他" id="other"  <?php if ($hobbys[2] == "その他") {echo 'checked';} ?>>その他
-      <input type="text" name="hobbys[3]" size="20" id="othertext" <?php echo "value=\"$other\""; ?>>
+      <input type="checkbox" name="hobbyMusic" value="音楽鑑賞" id="music" <?php if ($hobbyMusic == "音楽鑑賞") {echo 'checked';} ?>>音楽鑑賞
+      <input type="checkbox" name="hobbyMovie" value="映画鑑賞" id="movie" <?php  if ($hobbyMovie == "映画鑑賞") {echo 'checked';} ?>>映画鑑賞
+      <input type="checkbox" name="hobbyOther" value="その他" id="other"  <?php if ($hobbyOther == "その他") {echo 'checked';} ?>>その他
+      <input type="text" name="hobbyOtherText" size="20" id="othertext" <?php echo "value=\"$hobbyOtherText\""; ?>>
       <font color="#ff0000">
         <?php echo $otherErr;?>
       </font> 
