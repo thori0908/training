@@ -2,18 +2,32 @@
 session_start();
 
 $lastnameFlag = 0;
-$firstnameFlag =0;
+$firstnameFlag = 0;
 $genderFlag = 0;
 $postcodeFirstFlag  = 0;
 $postcodeSecondFlag  = 0;
 $prefectureFlag  = 0;
 $mailaddressFlag  = 0;
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (empty($_POST["lastname"]) == 0) {  $_SESSION["lastname"] = $_POST["lastname"];}
+  if (empty($_POST["firstname"]) == 0){   $_SESSION["firstname"] = $_POST["firstname"];}
+  if (empty($_POST["gender"]) == 0) {  $_SESSION["gender"] = $_POST["gender"];}
+  if (empty($_POST["postcodeFirst"]) == 0) {  $_SESSION["postcodeFirst"] = $_POST["postcodeFirst"];}
+  if (empty($_POST["postcodeSecond"]) == 0) {  $_SESSION["postcodeSecond"] = $_POST["postcodeSecond"];}
+  if (empty($_POST["prefecture"]) == 0) {  $_SESSION["prefecture"] = $_POST["prefecture"];}
+  if (empty($_POST["mailaddress"]) == 0) {  $_SESSION["mailaddress"] = $_POST["mailaddress"];}
+  if (empty($_POST["opinion"]) == 0) {  $_SESSION["opinion"] = $_POST["opinion"];}
+  if (empty($_POST["hobbyMusic"]) == 0) {  $_SESSION["hobbyMusic"] = $_POST["hobbyMusic"];}
+  if (empty($_POST["hobbyMovie"]) == 0) {  $_SESSION["hobbyMovie"] = $_POST["hobbyMovie"];}
+  if (empty($_POST["hobbyOther"]) == 0) {  $_SESSION["hobbyOther"] = $_POST["hobbyOther"];}
+  if (empty($_POST["hobbyOtherText"]) == 0) {  $_SESSION["hobbyOtherText"] = $_POST["hobbyOtherText"];}
+}
+
 if (empty($_POST["lastname"])) {
 } else {
     $lastnameFlag = 1;
     $lastname = $_POST["lastname"];
-    $_SESSION["lastname"] = $_POST["lastname"];
 }
 
 if (empty($_POST["firstname"])) {
@@ -46,7 +60,9 @@ if (empty($_POST["postcodeSecond"])) {
 
 if (($_POST["prefecture"] == "--")) {
 } else {
-    $prefectureFlag = 1; $prefecture  = $_POST["prefecture"]; $_SESSION["prefecture"] = $_POST["prefecture"]; }
+    $prefectureFlag = 1;
+    $prefecture  = $_POST["prefecture"]; 
+    $_SESSION["prefecture"] = $_POST["prefecture"]; }
 
 if (empty($_POST["mailaddress"])) {
 } else {

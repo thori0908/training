@@ -28,52 +28,45 @@ if (empty($_SESSION["hobbyMovie"])==0) {$hobbyMovie =  $_SESSION["hobbyMovie"];}
 if (empty($_SESSION["hobbyOther"])==0) {$hobbyOther =  $_SESSION["hobbyOther"];}
 if (empty($_SESSION["hobbyOtherText"])==0) {$hobbyOtherText =  $_SESSION["hobbyOtherText"];}
 
-if (empty($lastname)) {
-    $lastnameErr = "姓を入力して下さい．";
-} else {
-}
+if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/") {
+    if (empty($lastname)) {
+        $lastnameErr = "姓を入力して下さい．";
+    }
 
-if (empty($firstname)) {
-    $firstnameErr = "名を入力して下さい．";
-} else {
-}
+    if (empty($firstname)) {
+        $firstnameErr = "名を入力して下さい．";
+    }
 
-if (empty($gender)) {
-    $genderErr = "性別を選択して下さい．";
-} else {
-}
+    if (empty($gender)) {
+        $genderErr = "性別を選択して下さい．";
+    }
 
-if (empty($postcodeFirst)) {
-    $postcodeErr = "郵便番号を入力してください．";
-} else {
-}
+    if (empty($postcodeFirst)) {
+        $postcodeErr = "郵便番号を入力してください．";
+    }
 
-if (empty($postcodeSecond)) {
-    $postcodeErr = "郵便番号を入力してください．";
-} else {
-}
+    if (empty($postcodeSecond)) {
+        $postcodeErr = "郵便番号を入力してください．";
+    }
 
-if (($prefecture == "--")) {
-    $prefectureErr = "都道府県を選択してください．";
-} else {
-}
+    if (($prefecture == "--")) {
+        $prefectureErr = "都道府県を選択してください．";
+    }
 
-if (empty($mailaddress)) {
-    $mailaddressErr = "メールアドレスを入力してください．";
-} else {
-}
+    if (empty($mailaddress)) {
+        $mailaddressErr = "メールアドレスを入力してください．";
+    }
 
-if (empty($hobbyOther) == 0 && empty($hobbyOtherText)) {
-    $otherErr = "その他の詳細を入力してください．";
-} else {
-}
+    if (empty($hobbyOther) == 0 && empty($hobbyOtherText)) {
+        $otherErr = "その他の詳細を入力してください．";
+    }
 
-if (empty($opinion)) {
-    $opinionErr = "名を入力して下さい．";
-} else {
-    $opinion = $_SESSION["opinion"];
+    if (empty($opinion)) {
+        $opinionErr = "名を入力して下さい．";
+    } else {
+        $opinion = $_SESSION["opinion"];
+    }
 }
-
 ?>
  <h1>フォーム > 入力</h1>
  <form action="issue50_confirm.php" method="POST">
@@ -106,9 +99,20 @@ if (empty($opinion)) {
       <label for="prefecture">都道府県：</label>
       <select name="prefecture" id="prefecture">
         <option value="--">--</option>
-        <option value="東京都">東京都</option>
-        <option value="京都府">京都府</option>
-        <option value="愛知県">愛知県</option>
+<?php 
+$prefectureName = array("北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県",
+                        "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県",
+                        "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県",  
+                        "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", 
+                        "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県");
+for ($i = 0; $i < 47; $i++) { 
+    if ($prefectureName[$i] == $prefecture){
+        echo '<option value="'. $prefectureName[$i]. '"selected>'.$prefectureName[$i]. '</option>'. "\n"; 
+    }else{
+        echo '<option value="'. $prefectureName[$i]. '">'.$prefectureName[$i]. '</option>'. "\n"; 
+    }
+}
+?>
       </select>
       <font color="#ff0000">
         <?php echo $prefectureErr;?>
