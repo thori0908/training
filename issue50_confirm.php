@@ -1,6 +1,28 @@
 <?php
 session_start();
 
+$lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond = $postcodeSecond = $prefecture = $mailaddress = $other = $opinion ="";
+$hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText ="";
+
+$listNames = array("lastname", "firstname", "gender", "postcodeFirst", "postcodeSecond",
+                   "prefecture", "mailaddress", "opinion", "hobbyMusic", "hobbyMovie", 
+                   "hobbyOther", "hobbyOtherText");
+//空白処理・session更新-----------------------------
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    for ($i = 0; $i < 12; $i++) {
+        if (empty($_POST[$listNames[$i]])) {
+            $_SESSION[$listNames[$i]] = "";
+        } else { 
+            $_POST[$listNames[$i]] = trim($_POST[$listNames[$i]], " ");//空白処理 
+            $_POST[$listNames[$i]] = htmlspecialchars($_POST[$listNames[$i]]);  //htmlエスケープ処理
+            $_POST[$listNames[$i]] = addcslashes($_POST[$listNames[$i]], '"|&|<|>|\\');  //SQLエスケープ処理
+            $_SESSION[$listNames[$i]] = $_POST[$listNames[$i]];//sessionの更新
+        }
+    }
+}
+
+
+//エラーフラグ初期化--------------------
 $lastnameFlag = 0;
 $firstnameFlag = 0;
 $genderFlag = 0;
@@ -8,104 +30,87 @@ $postcodeFirstFlag  = 0;
 $postcodeSecondFlag  = 0;
 $prefectureFlag  = 0;
 $mailaddressFlag  = 0;
+$hobbyFlag = 0;
 
-$lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond = $postcodeSecond  = $prefecture = $postcode = $mailaddress = $other = $opinion ="";
-$hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText ="";
-
-$listNames = array("lastname", "firstname", "gender", "postcodeFirst", "postcodeSecond",
-                   "prefecture", "mailaddress", "opinion", "hobbyMusic", "hobbyMovie", 
-                   "hobbyOther", "hobbyOtherText");
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    for ($i = 0; $i < 12; $i++){
-        if (empty($_POST[$listNames[$i]]) == 0) {
-            $_POST[$listNames[$i]] = trim($_POST[$listNames[$i]], " ");//空白処理 
-            $_SESSION[$listNames[$i]] = $_POST[$listNames[$i]];}//SESSION更新
-        else {
-            $_SESSION[$listNames[$i]] = "";
-        }
-    }
-}
-
-
+//エラー処理 ----------------------------
 if (empty($_POST["lastname"])) {
+    $lastnameFlag = 1;//エラー処理
 } else {
-    $lastnameFlag = 1;
     $lastname = $_POST["lastname"];
 }
 
 if (empty($_POST["firstname"])) {
-} else {
     $firstnameFlag = 1;
+} else {
     $firstname = $_POST["firstname"];
-    $_SESSION["firstname"] = $_POST["firstname"];
 }
 
 if (empty($_POST["gender"])) {
-} else {
     $genderFlag = 1;
+} else {
     $gender = $_POST["gender"];
-    $_SESSION["gender"] = $_POST["gender"];
 }
 
 if (empty($_POST["postcodeFirst"])) {
-} else {
     $postcodeFirstFlag = 1;
+} else {
     $postcodeFirst  = $_POST["postcodeFirst"];
-    $_SESSION["postcodeFirst"] = $_POST["postcodeFirst"];
 }
 
 if (empty($_POST["postcodeSecond"])) {
-} else { $postcodeSecondFlag = 1; $postcodeSecond  = $_POST["postcodeSecond"]; $_SESSION["postcodeSecond"] = $_POST["postcodeSecond"];
+    $postcodeSecondFlag = 1; 
+} else { 
+    $postcodeSecond  = $_POST["postcodeSecond"]; 
 }
 
 if (($_POST["prefecture"] == "--")) {
-} else {
     $prefectureFlag = 1;
+} else {
     $prefecture  = $_POST["prefecture"]; 
-    $_SESSION["prefecture"] = $_POST["prefecture"]; }
+}
 
 if (empty($_POST["mailaddress"])) {
-} else {
     $mailaddressFlag = 1;
+} else {
     $mailaddress  = $_POST["mailaddress"];
-    $_SESSION["mailaddress"] = $_POST["mailaddress"];
 }
+
+
+if (empty($_POST["hobbyOther"]) == 0 && empty($_POST["hobbyOtherText"])) {
+        $hobbyFlag = 1;
+} 
 
 if (empty($_POST["hobbyMusic"])) {
 } else {
     $hobbyMusic  = $_POST["hobbyMusic"];
-    $_SESSION["hobbyMusic"] = $_POST["hobbyMusic"];
 }
    
 if (empty($_POST["hobbyMovie"])) {
 } else {
     $hobbyMovie  = $_POST["hobbyMovie"];
-    $_SESSION["hobbyMovie"] = $_POST["hobbyMovie"];
 }
 
 if (empty($_POST["hobbyOther"])) {
 } else {
     $hobbyOther  = $_POST["hobbyOther"];
-    $_SESSION["hobbyOther"] = $_POST["hobbyOther"];
 }
 
 if (empty($_POST["hobbyOtherText"])) {
 } else {
     $hobbyOtherText  = $_POST["hobbyOtherText"];
-    $_SESSION["hobbyOtherText"] = $_POST["hobbyOtherText"];
 }
 
 if (empty($_POST["opinion"])) {
 } else {
     $opinion = $_POST["opinion"];
-    $_SESSION["opinion"] = $_POST["opinion"];
 }
-$errorFlag = 1 - $lastnameFlag * $firstnameFlag * $genderFlag * $postcodeFirstFlag * $postcodeSecondFlag * $prefectureFlag* $mailaddressFlag ;  
+
+$errorFlag = 1 - (1 - $lastnameFlag) * (1 - $firstnameFlag) * (1 - $genderFlag) * (1 - $postcodeFirstFlag)
+               * (1 - $postcodeSecondFlag) * (1 - $prefectureFlag) * (1 - $mailaddressFlag) * (1 - $hobbyFlag);  
 
 if ($errorFlag == 1 ) {
   header("Location:". $_SERVER['HTTP_REFERER']);
-  } 
+} 
 ?>
 <!DOCTYPE html>
 <html>
@@ -154,7 +159,7 @@ if ($errorFlag == 1 ) {
     </table>
     <input type="submit" value="戻る" formaction="issue50_input.php">
     <br>
-    <input type="submit" value="送信" formaction="issue50_complete.php">
+    <input type="submit" value="送信" formaction="issue17_complete.html">
   </form>
   <p>Copyright 2014</p>
 </body>

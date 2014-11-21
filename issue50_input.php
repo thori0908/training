@@ -13,20 +13,20 @@ session_start();
 <?php
 $lastnameErr = $firstnameErr = $genderErr = $postcodeErr = $prefectureErr = $posetcodeErr = $mailaddressErr = $otherErr = $opinionErr ="";
 $lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond = $postcodeSecond  = $prefecture = $posetcode = $mailaddress = $other = $opinion ="";
-$hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText ="";
+$hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText = "";
 
-if (empty($_SESSION["lastname"]) == 0) {$lastname = $_SESSION["lastname"];}
-if (empty($_SESSION["firstname"])==0) {$firstname = $_SESSION["firstname"];}
-if (empty($_SESSION["gender"])==0) {$gender = $_SESSION["gender"];}
-if (empty($_SESSION["postcodeFirst"])==0) {$postcodeFirst  = $_SESSION["postcodeFirst"];}
-if (empty($_SESSION["postcodeSecond"])==0) {$postcodeSecond  = $_SESSION["postcodeSecond"];}
-if (empty($_SESSION["prefecture"])==0) {$prefecture  = $_SESSION["prefecture"];}
-if (empty($_SESSION["mailaddress"])==0) {$mailaddress  = $_SESSION["mailaddress"];}
-if (empty($_SESSION["opinion"])==0) {$opinion =  $_SESSION["opinion"];}
-if (empty($_SESSION["hobbyMusic"])==0) {$hobbyMusic =  $_SESSION["hobbyMusic"];}
-if (empty($_SESSION["hobbyMovie"])==0) {$hobbyMovie =  $_SESSION["hobbyMovie"];}
-if (empty($_SESSION["hobbyOther"])==0) {$hobbyOther =  $_SESSION["hobbyOther"];}
-if (empty($_SESSION["hobbyOtherText"])==0) {$hobbyOtherText =  $_SESSION["hobbyOtherText"];}
+if (empty($_SESSION["lastname"]) == 0) { $lastname = $_SESSION["lastname"]; }
+if (empty($_SESSION["firstname"]) == 0) { $firstname = $_SESSION["firstname"]; }
+if (empty($_SESSION["gender"]) == 0) { $gender = $_SESSION["gender"]; }
+if (empty($_SESSION["postcodeFirst"]) == 0) { $postcodeFirst  = $_SESSION["postcodeFirst"]; }
+if (empty($_SESSION["postcodeSecond"]) == 0) { $postcodeSecond  = $_SESSION["postcodeSecond"]; }
+if (empty($_SESSION["prefecture"]) == 0) { $prefecture  = $_SESSION["prefecture"]; }
+if (empty($_SESSION["mailaddress"]) == 0) { $mailaddress  = $_SESSION["mailaddress"]; }
+if (empty($_SESSION["opinion"]) == 0) { $opinion =  $_SESSION["opinion"]; }
+if (empty($_SESSION["hobbyMusic"]) == 0) { $hobbyMusic =  $_SESSION["hobbyMusic"]; }
+if (empty($_SESSION["hobbyMovie"]) == 0) { $hobbyMovie =  $_SESSION["hobbyMovie"]; }
+if (empty($_SESSION["hobbyOther"]) == 0) { $hobbyOther =  $_SESSION["hobbyOther"]; }
+if (empty($_SESSION["hobbyOtherText"]) == 0) { $hobbyOtherText =  $_SESSION["hobbyOtherText"]; }
 
 
 if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/") {
