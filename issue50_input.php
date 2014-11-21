@@ -28,6 +28,7 @@ if (empty($_SESSION["hobbyMovie"])==0) {$hobbyMovie =  $_SESSION["hobbyMovie"];}
 if (empty($_SESSION["hobbyOther"])==0) {$hobbyOther =  $_SESSION["hobbyOther"];}
 if (empty($_SESSION["hobbyOtherText"])==0) {$hobbyOtherText =  $_SESSION["hobbyOtherText"];}
 
+
 if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/") {
     if (empty($lastname)) {
         $lastnameErr = "姓を入力して下さい．";

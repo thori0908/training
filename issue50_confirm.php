@@ -9,20 +9,24 @@ $postcodeSecondFlag  = 0;
 $prefectureFlag  = 0;
 $mailaddressFlag  = 0;
 
+$lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond = $postcodeSecond  = $prefecture = $postcode = $mailaddress = $other = $opinion ="";
+$hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText ="";
+
+$listNames = array("lastname", "firstname", "gender", "postcodeFirst", "postcodeSecond",
+                   "prefecture", "mailaddress", "opinion", "hobbyMusic", "hobbyMovie", 
+                   "hobbyOther", "hobbyOtherText");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["lastname"]) == 0) {  $_SESSION["lastname"] = $_POST["lastname"];}
-  if (empty($_POST["firstname"]) == 0){   $_SESSION["firstname"] = $_POST["firstname"];}
-  if (empty($_POST["gender"]) == 0) {  $_SESSION["gender"] = $_POST["gender"];}
-  if (empty($_POST["postcodeFirst"]) == 0) {  $_SESSION["postcodeFirst"] = $_POST["postcodeFirst"];}
-  if (empty($_POST["postcodeSecond"]) == 0) {  $_SESSION["postcodeSecond"] = $_POST["postcodeSecond"];}
-  if (empty($_POST["prefecture"]) == 0) {  $_SESSION["prefecture"] = $_POST["prefecture"];}
-  if (empty($_POST["mailaddress"]) == 0) {  $_SESSION["mailaddress"] = $_POST["mailaddress"];}
-  if (empty($_POST["opinion"]) == 0) {  $_SESSION["opinion"] = $_POST["opinion"];}
-  if (empty($_POST["hobbyMusic"]) == 0) {  $_SESSION["hobbyMusic"] = $_POST["hobbyMusic"];}
-  if (empty($_POST["hobbyMovie"]) == 0) {  $_SESSION["hobbyMovie"] = $_POST["hobbyMovie"];}
-  if (empty($_POST["hobbyOther"]) == 0) {  $_SESSION["hobbyOther"] = $_POST["hobbyOther"];}
-  if (empty($_POST["hobbyOtherText"]) == 0) {  $_SESSION["hobbyOtherText"] = $_POST["hobbyOtherText"];}
+    for ($i = 0; $i < 12; $i++){
+        if (empty($_POST[$listNames[$i]]) == 0) {
+            $_POST[$listNames[$i]] = trim($_POST[$listNames[$i]], " ");//空白処理 
+            $_SESSION[$listNames[$i]] = $_POST[$listNames[$i]];}//SESSION更新
+        else {
+            $_SESSION[$listNames[$i]] = "";
+        }
+    }
 }
+
 
 if (empty($_POST["lastname"])) {
 } else {
@@ -52,10 +56,7 @@ if (empty($_POST["postcodeFirst"])) {
 }
 
 if (empty($_POST["postcodeSecond"])) {
-} else {
-    $postcodeSecondFlag = 1;
-    $postcodeSecond  = $_POST["postcodeSecond"];
-    $_SESSION["postcodeSecond"] = $_POST["postcodeSecond"];
+} else { $postcodeSecondFlag = 1; $postcodeSecond  = $_POST["postcodeSecond"]; $_SESSION["postcodeSecond"] = $_POST["postcodeSecond"];
 }
 
 if (($_POST["prefecture"] == "--")) {
@@ -103,7 +104,7 @@ if (empty($_POST["opinion"])) {
 $errorFlag = 1 - $lastnameFlag * $firstnameFlag * $genderFlag * $postcodeFirstFlag * $postcodeSecondFlag * $prefectureFlag* $mailaddressFlag ;  
 
 if ($errorFlag == 1 ) {
-    header("Location: http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/issue50_input.php");
+  header("Location:". $_SERVER['HTTP_REFERER']);
   } 
 ?>
 <!DOCTYPE html>
@@ -143,13 +144,7 @@ if ($errorFlag == 1 ) {
       <tr> 
         <td>趣味：
         <?php 
-        $hobby = $_POST["hobbys"]; 
-        for ($i = 0; $i < sizeof($hobby); $i++){
-            if (empty($hobby[$i]) == 0) { 
-                echo $hobby[$i]. ' ';
-                echo '<input type="hidden" name="hobbys['. $i. ']" value="'. $hobby[$i]. '">';
-            }
-        }
+                echo $hobbyMusic. ' '.$hobbyMovie.' '. $hobbyOther.' '. $hobbyOtherText;
         ?>
         </td>
       </tr>
