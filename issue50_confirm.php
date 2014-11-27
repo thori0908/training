@@ -23,61 +23,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 //エラーフラグ初期化--------------------
-$lastnameFlag = 0;
-$firstnameFlag = 0;
-$genderFlag = 0;
-$postcodeFirstFlag  = 0;
-$postcodeSecondFlag  = 0;
-$prefectureFlag  = 0;
-$mailaddressFlag  = 0;
-$hobbyFlag = 0;
+$lastnameFlag = False;
+$firstnameFlag = False;
+$genderFlag = False;
+$postcodeFirstFlag  = False;
+$postcodeSecondFlag  = False;
+$prefectureFlag  = False;
+$mailaddressFlag  = False;
+$hobbyFlag = False;
 
 //エラー処理 ----------------------------
 if (empty($_POST["lastname"])) {
-    $lastnameFlag = 1;//エラー処理
+    $lastnameFlag = True;//エラー処理
 } else {
     $lastname = $_POST["lastname"];
 }
 
 if (empty($_POST["firstname"])) {
-    $firstnameFlag = 1;
+    $firstnameFlag = True;
 } else {
     $firstname = $_POST["firstname"];
 }
 
 if (empty($_POST["gender"])) {
-    $genderFlag = 1;
+    $genderFlag = True;
 } else {
     $gender = $_POST["gender"];
 }
 
 if (empty($_POST["postcodeFirst"])) {
-    $postcodeFirstFlag = 1;
+    $postcodeFirstFlag = True;
 } else {
     $postcodeFirst  = $_POST["postcodeFirst"];
 }
 
 if (empty($_POST["postcodeSecond"])) {
-    $postcodeSecondFlag = 1; 
+    $postcodeSecondFlag = True; 
 } else { 
     $postcodeSecond  = $_POST["postcodeSecond"]; 
 }
 
 if (($_POST["prefecture"] == "--")) {
-    $prefectureFlag = 1;
+    $prefectureFlag = True;
 } else {
     $prefecture  = $_POST["prefecture"]; 
 }
 
 if (empty($_POST["mailaddress"])) {
-    $mailaddressFlag = 1;
+    $mailaddressFlag = True;
 } else {
     $mailaddress  = $_POST["mailaddress"];
 }
 
 
 if (empty($_POST["hobbyOther"]) == 0 && empty($_POST["hobbyOtherText"])) {
-        $hobbyFlag = 1;
+        $hobbyFlag = True;
 } 
 
 if (empty($_POST["hobbyMusic"])) {
@@ -105,8 +105,8 @@ if (empty($_POST["opinion"])) {
     $opinion = $_POST["opinion"];
 }
 
-$errorFlag = 1 - (1 - $lastnameFlag) * (1 - $firstnameFlag) * (1 - $genderFlag) * (1 - $postcodeFirstFlag)
-               * (1 - $postcodeSecondFlag) * (1 - $prefectureFlag) * (1 - $mailaddressFlag) * (1 - $hobbyFlag);  
+
+$errorFlag = $lastnameFlag || $firstnameFlag || $genderFlag || $postcodeFirstFlag || $postcodeSecondFlag || $prefectureFlag || $mailaddressFlag || $hobbyFlag;
 
 if ($errorFlag == 1 ) {
   header("Location:". $_SERVER['HTTP_REFERER']);

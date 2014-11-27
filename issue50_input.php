@@ -11,22 +11,24 @@ session_start();
 
 <body>
 <?php
+$error = array("lastname" => "" ,"firstname" => "", "gender" => "", "postcode" => "", "mailaddress" => "", "other" => "", "opinion" => "");
+
 $lastnameErr = $firstnameErr = $genderErr = $postcodeErr = $prefectureErr = $posetcodeErr = $mailaddressErr = $otherErr = $opinionErr ="";
 $lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond = $postcodeSecond  = $prefecture = $posetcode = $mailaddress = $other = $opinion ="";
 $hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText = "";
 
-if (empty($_SESSION["lastname"]) == 0) { $lastname = $_SESSION["lastname"]; }
-if (empty($_SESSION["firstname"]) == 0) { $firstname = $_SESSION["firstname"]; }
-if (empty($_SESSION["gender"]) == 0) { $gender = $_SESSION["gender"]; }
-if (empty($_SESSION["postcodeFirst"]) == 0) { $postcodeFirst  = $_SESSION["postcodeFirst"]; }
-if (empty($_SESSION["postcodeSecond"]) == 0) { $postcodeSecond  = $_SESSION["postcodeSecond"]; }
-if (empty($_SESSION["prefecture"]) == 0) { $prefecture  = $_SESSION["prefecture"]; }
-if (empty($_SESSION["mailaddress"]) == 0) { $mailaddress  = $_SESSION["mailaddress"]; }
-if (empty($_SESSION["opinion"]) == 0) { $opinion =  $_SESSION["opinion"]; }
-if (empty($_SESSION["hobbyMusic"]) == 0) { $hobbyMusic =  $_SESSION["hobbyMusic"]; }
-if (empty($_SESSION["hobbyMovie"]) == 0) { $hobbyMovie =  $_SESSION["hobbyMovie"]; }
-if (empty($_SESSION["hobbyOther"]) == 0) { $hobbyOther =  $_SESSION["hobbyOther"]; }
-if (empty($_SESSION["hobbyOtherText"]) == 0) { $hobbyOtherText =  $_SESSION["hobbyOtherText"]; }
+if (!empty($_SESSION["lastname"])) { $lastname = $_SESSION["lastname"]; }
+if (!empty($_SESSION["firstname"])) { $firstname = $_SESSION["firstname"]; }
+if (!empty($_SESSION["gender"])) { $gender = $_SESSION["gender"]; }
+if (!empty($_SESSION["postcodeFirst"])) { $postcodeFirst  = $_SESSION["postcodeFirst"]; }
+if (!empty($_SESSION["postcodeSecond"])) { $postcodeSecond  = $_SESSION["postcodeSecond"]; }
+if (!empty($_SESSION["prefecture"])) { $prefecture  = $_SESSION["prefecture"]; }
+if (!empty($_SESSION["mailaddress"])) { $mailaddress  = $_SESSION["mailaddress"]; }
+if (!empty($_SESSION["opinion"])) { $opinion =  $_SESSION["opinion"]; }
+if (!empty($_SESSION["hobbyMusic"])) { $hobbyMusic =  $_SESSION["hobbyMusic"]; }
+if (!empty($_SESSION["hobbyMovie"])) { $hobbyMovie =  $_SESSION["hobbyMovie"]; }
+if (!empty($_SESSION["hobbyOther"])) { $hobbyOther =  $_SESSION["hobbyOther"]; }
+if (!empty($_SESSION["hobbyOtherText"])) { $hobbyOtherText =  $_SESSION["hobbyOtherText"]; }
 
 
 if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/") {
@@ -68,6 +70,20 @@ if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.comput
         $opinion = $_SESSION["opinion"];
     }
 }
+
+$prefectureNames = array("北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県",
+                        "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県",
+                        "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県",  
+                        "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", 
+                        "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県");
+$selectbox = "";
+foreach ($prefectureNames as &$prefectureName) { 
+          if ($prefectureName == $prefecture) {
+              $selectbox .= '<option value="'. $prefectureName. '"selected>'.$prefectureName. '</option>'. "\n"; 
+          }else{
+              $selectbox .= '<option value="'. $prefectureName. '">'.$prefectureName. '</option>'. "\n"; 
+          }
+}  
 ?>
  <h1>フォーム > 入力</h1>
  <form action="issue50_confirm.php" method="POST">
@@ -100,20 +116,9 @@ if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.comput
       <label for="prefecture">都道府県：</label>
       <select name="prefecture" id="prefecture">
         <option value="--">--</option>
-<?php 
-$prefectureName = array("北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県",
-                        "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県",
-                        "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県",  
-                        "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", 
-                        "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県");
-for ($i = 0; $i < 47; $i++) { 
-    if ($prefectureName[$i] == $prefecture){
-        echo '<option value="'. $prefectureName[$i]. '"selected>'.$prefectureName[$i]. '</option>'. "\n"; 
-    }else{
-        echo '<option value="'. $prefectureName[$i]. '">'.$prefectureName[$i]. '</option>'. "\n"; 
-    }
-}
-?>
+      <?php 
+      echo $selectbox;
+      ?>
       </select>
       <font color="#ff0000">
         <?php echo $prefectureErr;?>
