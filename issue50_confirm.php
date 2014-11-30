@@ -11,12 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION[$key] = "";
         } else { 
             $_POST[$key] = trim($_POST[$key], " ");//空白処理 
+            $_POST[$key] = trim($_POST[$key], "　");//空白処理 
             $_POST[$key] = htmlspecialchars($_POST[$key]);  //htmlエスケープ処理
-            $_SESSION[$key]  = $_POST[$key];//sessionの更新
+            $_SESSION[$key] = $_POST[$key];//sessionの更新
         }
     }
 }
-
 
 
 //エラーフラグ初期化--------------------
@@ -34,7 +34,7 @@ if (empty($_POST["lastname"])) {
     $lastnameFlag = True;//エラー処理
 } else {
     $lastname = $_POST["lastname"];
-        if (mb_strlen($lastname) >= 50){ 
+        if (strlen($lastname) >= 50){ 
             $lastnameFlag = "True";
         }
 }
@@ -43,7 +43,7 @@ if (empty($_POST["firstname"])) {
     $firstnameFlag = True;
 } else {
     $firstname = $_POST["firstname"];
-       if (mb_strlen($firstname) >= 50){ 
+       if (strlen($firstname) >= 50){ 
             $firstnameFlag = "True";
         }
 }

@@ -35,7 +35,7 @@ if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.comput
     if (empty($lastname)) {
         $lastnameErr = "姓を入力して下さい．";
     }else{
-        if (mb_strlen($lastname) >= 50){ 
+        if (strlen($lastname) >= 50){ 
             $lastnameErr = "姓は50文字以内で入力してください。";
         }
     }
@@ -43,7 +43,7 @@ if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.comput
     if (empty($firstname)) {
         $firstnameErr = "名を入力して下さい．";
     }else{
-        if (mb_strlen($firstname) >= 50){ 
+        if (strlen($firstname) >= 50){ 
             $firstnameErr = "名は50文字以内で入力してください。";
         }
     }
