@@ -2,24 +2,21 @@
 session_start();
 
 $lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond = $postcodeSecond = $prefecture = $mailaddress = $other = $opinion ="";
-$hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText ="";
+$hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText = "";
 
-$listNames = array("lastname", "firstname", "gender", "postcodeFirst", "postcodeSecond",
-                   "prefecture", "mailaddress", "opinion", "hobbyMusic", "hobbyMovie", 
-                   "hobbyOther", "hobbyOtherText");
 //空白処理・session更新-----------------------------
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    for ($i = 0; $i < 12; $i++) {
-        if (empty($_POST[$listNames[$i]])) {
-            $_SESSION[$listNames[$i]] = "";
+    foreach($_SESSION as $key => $listValue) {
+        if (empty($_POST[$key])) {
+            $_SESSION[$key] = "";
         } else { 
-            $_POST[$listNames[$i]] = trim($_POST[$listNames[$i]], " ");//空白処理 
-            $_POST[$listNames[$i]] = htmlspecialchars($_POST[$listNames[$i]]);  //htmlエスケープ処理
-            $_POST[$listNames[$i]] = addcslashes($_POST[$listNames[$i]], '"|&|<|>|\\');  //SQLエスケープ処理
-            $_SESSION[$listNames[$i]] = $_POST[$listNames[$i]];//sessionの更新
+            $_POST[$key] = trim($_POST[$key], " ");//空白処理 
+            $_POST[$key] = htmlspecialchars($_POST[$key]);  //htmlエスケープ処理
+            $_SESSION[$key]  = $_POST[$key];//sessionの更新
         }
     }
 }
+
 
 
 //エラーフラグ初期化--------------------
@@ -37,12 +34,18 @@ if (empty($_POST["lastname"])) {
     $lastnameFlag = True;//エラー処理
 } else {
     $lastname = $_POST["lastname"];
+        if (mb_strlen($lastname) >= 50){ 
+            $lastnameFlag = "True";
+        }
 }
 
 if (empty($_POST["firstname"])) {
     $firstnameFlag = True;
 } else {
     $firstname = $_POST["firstname"];
+       if (mb_strlen($firstname) >= 50){ 
+            $firstnameFlag = "True";
+        }
 }
 
 if (empty($_POST["gender"])) {
@@ -55,12 +58,18 @@ if (empty($_POST["postcodeFirst"])) {
     $postcodeFirstFlag = True;
 } else {
     $postcodeFirst  = $_POST["postcodeFirst"];
+    if (!preg_match("/^[0-9]+$/", $postcodeFirst)) { 
+        $postcodeFirstFlag = True;
+    }
 }
 
 if (empty($_POST["postcodeSecond"])) {
     $postcodeSecondFlag = True; 
 } else { 
     $postcodeSecond  = $_POST["postcodeSecond"]; 
+    if (!preg_match("/^[0-9]+$/", $postcodeSecond)) { 
+        $postcodeSecondFlag = True;
+    }
 }
 
 if (($_POST["prefecture"] == "--")) {
@@ -73,6 +82,9 @@ if (empty($_POST["mailaddress"])) {
     $mailaddressFlag = True;
 } else {
     $mailaddress  = $_POST["mailaddress"];
+    if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mailaddress)) {
+        $mailaddressFlag = True;
+    }
 }
 
 
@@ -107,7 +119,6 @@ if (empty($_POST["opinion"])) {
 
 
 $errorFlag = $lastnameFlag || $firstnameFlag || $genderFlag || $postcodeFirstFlag || $postcodeSecondFlag || $prefectureFlag || $mailaddressFlag || $hobbyFlag;
-
 if ($errorFlag == 1 ) {
   header("Location:". $_SERVER['HTTP_REFERER']);
 } 

@@ -6,7 +6,7 @@ session_start();
 <html>  
 <head>
   <meta charset="UTF-8">
-  <title>issue17</title>
+  <title>issue50</title>
 </head>
 
 <body>
@@ -20,10 +20,10 @@ $hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText = "";
 if (!empty($_SESSION["lastname"])) { $lastname = $_SESSION["lastname"]; }
 if (!empty($_SESSION["firstname"])) { $firstname = $_SESSION["firstname"]; }
 if (!empty($_SESSION["gender"])) { $gender = $_SESSION["gender"]; }
-if (!empty($_SESSION["postcodeFirst"])) { $postcodeFirst  = $_SESSION["postcodeFirst"]; }
-if (!empty($_SESSION["postcodeSecond"])) { $postcodeSecond  = $_SESSION["postcodeSecond"]; }
-if (!empty($_SESSION["prefecture"])) { $prefecture  = $_SESSION["prefecture"]; }
-if (!empty($_SESSION["mailaddress"])) { $mailaddress  = $_SESSION["mailaddress"]; }
+if (!empty($_SESSION["postcodeFirst"])) { $postcodeFirst = $_SESSION["postcodeFirst"]; }
+if (!empty($_SESSION["postcodeSecond"])) { $postcodeSecond = $_SESSION["postcodeSecond"]; }
+if (!empty($_SESSION["prefecture"])) { $prefecture = $_SESSION["prefecture"]; }
+if (!empty($_SESSION["mailaddress"])) { $mailaddress = $_SESSION["mailaddress"]; }
 if (!empty($_SESSION["opinion"])) { $opinion =  $_SESSION["opinion"]; }
 if (!empty($_SESSION["hobbyMusic"])) { $hobbyMusic =  $_SESSION["hobbyMusic"]; }
 if (!empty($_SESSION["hobbyMovie"])) { $hobbyMovie =  $_SESSION["hobbyMovie"]; }
@@ -34,10 +34,18 @@ if (!empty($_SESSION["hobbyOtherText"])) { $hobbyOtherText =  $_SESSION["hobbyOt
 if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/") {
     if (empty($lastname)) {
         $lastnameErr = "姓を入力して下さい．";
+    }else{
+        if (mb_strlen($lastname) >= 50){ 
+            $lastnameErr = "姓は50文字以内で入力してください。";
+        }
     }
-
+    
     if (empty($firstname)) {
         $firstnameErr = "名を入力して下さい．";
+    }else{
+        if (mb_strlen($firstname) >= 50){ 
+            $firstnameErr = "名は50文字以内で入力してください。";
+        }
     }
 
     if (empty($gender)) {
@@ -46,10 +54,18 @@ if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.comput
 
     if (empty($postcodeFirst)) {
         $postcodeErr = "郵便番号を入力してください．";
+    } else {
+        if (!preg_match("/^[0-9]+$/", $postcodeFirst)) { 
+            $postcodeErr = "郵便番号を正しく入力してください．" ;
+        }
     }
 
     if (empty($postcodeSecond)) {
         $postcodeErr = "郵便番号を入力してください．";
+    } else {
+        if (!preg_match("/^[0-9]+$/", $postcodeSecond)) { 
+            $postcodeErr = "郵便番号を正しく入力してください．" ;
+        }
     }
 
     if (($prefecture == "--")) {
@@ -57,7 +73,11 @@ if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.comput
     }
 
     if (empty($mailaddress)) {
-        $mailaddressErr = "メールアドレスを入力してください．";
+       $mailaddressErr = "メールアドレスを入力してください．";
+    } else {
+        if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mailaddress)) {
+            $mailaddressErr = "郵便番号を正しく入力してください。";
+       }
     }
 
     if (empty($hobbyOther) == 0 && empty($hobbyOtherText)) {
