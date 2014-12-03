@@ -1,134 +1,84 @@
 <?php
 session_start();
 
-$errors = array("lastname" => "" ,"firstname" => "", "gender" => "", "postcode" => "", 
-                "prefecture" => "", "mailaddress" => "", "other" => "");
 $formNames = array("lastname" => "", "firstname" => "", "gender" => "", "postcodeFirst" => "", "postcodeSecond" => "", 
-                   "postcodeSecond " => "", "prefecture" => "", "posetcode" => "", "mailaddress" => "", "other" => "",  
+                   "postcodeSecond " => "", "prefecture" => "", "postcode" => "", "mailaddress" => "", "other" => "",  
                    "opinion" => "", "hobbyMusic" => "", "hobbyMovie" => "", "hobbyOther" => "", "hobbyOtherText" => ""); 
 
-$lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond = $postcodeSecond = $prefecture = $mailaddress = $other = $opinion = "";
-$hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText = "";
-
+//エラーフラグ初期化--------------------
+$errorFlags = array("lastname" => empty($_POST["lastname"]), "firstname" => empty($_POST["firstname"]), "gender" => empty($_POST["gender"]), 
+                    "postcodeFirst" => empty($_POST["postcodeFirst"]), "postcodeSecond" => empty($_POST["postcodeSecond"]),
+                    "prefecture" => empty($_POST["prefecture"]),
+                    "mailaddress" => empty($_POST[ "mailaddress"]), "hobby" => empty($_POST["hobby"])); 
 //空白処理・session更新-----------------------------
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    foreach ($_SESSION as $key => $listValue) {
+    foreach ($formNames as $key => $listValue) {
         if (empty($_POST[$key])) {
             $_SESSION[$key] = "";
+            $formNames[$key] = "";
         } else { 
-            $_POST[$key] = mb_ereg_replace ("　", " ", $_POST[$key]);//全角空白置換 
-            $_POST[$key] = trim($_POST[$key], " ");//空白処理 
-            $_POST[$key] = htmlspecialchars($_POST[$key]);  //htmlエスケープ処理
-            $_SESSION[$key] = $_POST[$key];//sessionの更新
+            $_POST[$key] = mb_ereg_replace ('^[\s　]*(.*?)[\s　]*$', '\1', $_POST[$key]);//全角空白置換 
+            $formNames[$key] = trim($_POST[$key], " ");//空白処理 
+            $formNames[$key] = htmlspecialchars($_POST[$key]);  //htmlエスケープ処理
+            $_SESSION[$key] = $formNames[$key];//sessionの更新
         }
     }
 }
 
-
-//エラーフラグ初期化--------------------
-$lastnameFlag = False;
-$firstnameFlag = False;
-$genderFlag = False;
-$postcodeFirstFlag  = False;
-$postcodeSecondFlag  = False;
-$prefectureFlag  = False;
-$mailaddressFlag  = False;
-$hobbyFlag = False;
-
-//if 
-
-//エラー処理 ----------------------------
-if (empty($_POST["lastname"])) {
-    $lastnameFlag = True;//エラー処理
-} else {
-    $lastname = $_POST["lastname"];
-        if (strlen($lastname) >= 50) { 
-            $lastnameFlag = "True";
-        }
-}
-
-if (empty($_POST["firstname"])) {
-    $firstnameFlag = True;
-} else {
-    $firstname = $_POST["firstname"];
-       if (strlen($firstname) >= 50) { 
-            $firstnameFlag = "True";
-         }
-}
-
-if (empty($_POST["gender"])) {
-    $genderFlag = True;
-} else {
-    $gender = $_POST["gender"];
-}
-
-if (empty($_POST["postcodeFirst"])) {
-    $postcodeFirstFlag = True;
-} else {
-    $postcodeFirst  = $_POST["postcodeFirst"];
-    if (!preg_match("/^[0-9]+$/", $postcodeFirst)) { 
-        $postcodeFirstFlag = True;
+foreach ($errorFlags as $key => $value) {
+    if (!$errorFlags[$key]) {
+        $errorFlags[$key] = False;
     }
 }
 
-if (empty($_POST["postcodeSecond"])) {
-    $postcodeSecondFlag = True; 
-} else { 
-    $postcodeSecond  = $_POST["postcodeSecond"]; 
-    if (!preg_match("/^[0-9]+$/", $postcodeSecond)) { 
-        $postcodeSecondFlag = True;
+//バリデーション-------------------
+if (!$errorFlags["lastname"]) {
+    if (strlen($formNames["lastname"]) >= 50) { 
+        $errorFlags["lastname"] = True;
+    }
+}
+
+if (!$errorFlags["firstname"]) {
+    if (strlen($formNames["firstname"]) >= 50) { 
+        $errorFlags["firstname"] = True;
+    }
+}
+
+if (!$errorFlags["postcodeFirst"]) {
+    if (!preg_match("/^[0-9]+$/", $formNames["postcodeFirst"])) { 
+        $errorFlags["postcodeFirst"] = True;
+    }
+}
+
+if (!$errorFlags["postcodeSecond"]) {
+    if (!preg_match("/^[0-9]+$/", $formNames["postcodeSecond"])) { 
+        $errorFlags["postcodeSecond"] = True;
     }
 }
 
 if (($_POST["prefecture"] == "--")) {
-    $prefectureFlag = True;
-} else {
-    $prefecture  = $_POST["prefecture"]; 
+    $errorFlags["prefecture"] = True;
 }
 
-if (empty($_POST["mailaddress"])) {
-    $mailaddressFlag = True;
-} else {
-    $mailaddress  = $_POST["mailaddress"];
-    if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mailaddress)) {
-        $mailaddressFlag = True;
+if (!$errorFlags["mailaddress"]) {
+    if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formNames["mailaddress"])) {
+        $errorFlags["mailaddress"] = True;
     }
 }
 
-
-if (empty($_POST["hobbyOther"]) == 0 && empty($_POST["hobbyOtherText"])) {
-        $hobbyFlag = True;
-} 
-
-if (empty($_POST["hobbyMusic"])) {
-} else {
-    $hobbyMusic  = $_POST["hobbyMusic"];
-}
-   
-if (empty($_POST["hobbyMovie"])) {
-} else {
-    $hobbyMovie  = $_POST["hobbyMovie"];
-}
-
-if (empty($_POST["hobbyOther"])) {
-} else {
-    $hobbyOther = $_POST["hobbyOther"];
-}
-
-if (empty($_POST["hobbyOtherText"])) {
-} else {
-    $hobbyOtherText = $_POST["hobbyOtherText"];
-}
-
-if (empty($_POST["opinion"])) {
-} else {
-    $opinion = $_POST["opinion"];
+if (!empty($_POST["hobbyOther"]) && empty($_POST["hobbyOtherText"])) {
+    $errorFlags["hobby"] = True;
+} else { 
+    $errorFlags["hobby"] = False;
 }
 
 
-$errorFlag = $lastnameFlag || $firstnameFlag || $genderFlag || $postcodeFirstFlag || $postcodeSecondFlag || $prefectureFlag || $mailaddressFlag || $hobbyFlag;
-if ($errorFlag == 1 ) {
-  header("Location:". $_SERVER['HTTP_REFERER']);
+$errorFlag = $errorFlags["lastname"] || $errorFlags["firstname"] || $errorFlags["gender"] || $errorFlags["postcodeFirst"]
+           || $errorFlags["postcodeSecond"] || $errorFlags["prefecture"] || $errorFlags["mailaddress"] || $errorFlags["hobby"];
+
+//flagチェック
+if ($errorFlag == True) {
+    header("Location:". $_SERVER['HTTP_REFERER']);
 } 
 ?>
 
@@ -145,34 +95,34 @@ if ($errorFlag == 1 ) {
     <table>
       <tr>
       <tr>
-        <td>名前：<?php echo $_POST["lastname"] . $_POST["firstname"]; ?></td>
-          <input type="hidden" name="lastname" value="<?php echo $_POST["lastname"]; ?>">
-          <input type="hidden" name="firstname" value="<?php echo $_POST["firstname"]; ?>">
+        <td>名前：<?php echo $formNames["lastname"] . $formNames["firstname"]; ?></td>
+          <input type="hidden" name="lastname" value="<?php echo $formNames["lastname"]; ?>">
+          <input type="hidden" name="firstname" value="<?php echo $formNames["firstname"]; ?>">
       </tr>
       <tr>
-        <td>性別：<?php echo $_POST["gender"]; ?></td>
-          <input type="hidden" name="gender" value="<?php echo $_POST["gender"]; ?>">
+        <td>性別：<?php echo $formNames["gender"]; ?></td>
+          <input type="hidden" name="gender" value="<?php echo $formNames["gender"]; ?>">
       </tr>
       <tr> 
-        <td>郵便番号：<?php echo $_POST["postcodeFirst"] . $_POST["postcodeSecond"]; ?></td>
-          <input type="hidden" name="postcodeFirst" value="<?php echo $_POST["postcodeFirst"]; ?>">
-          <input type="hidden" name="postcodeSecond" value="<?php echo $_POST["postcodeSecond"]; ?>">
+        <td>郵便番号：<?php echo $formNames["postcodeFirst"] . "-" . $formNames["postcodeSecond"]; ?></td>
+          <input type="hidden" name="postcodeFirst" value="<?php echo $formNames["postcodeFirst"]; ?>">
+          <input type="hidden" name="postcodeSecond" value="<?php echo $formNames["postcodeSecond"]; ?>">
       </tr>
       <tr> 
-        <td>都道府県：<?php echo $_POST["prefecture"]; ?></td>
-          <input type="hidden" name="prefecture" value="<?php echo $_POST["prefecture"]; ?>">
+        <td>都道府県：<?php echo $formNames["prefecture"]; ?></td>
+          <input type="hidden" name="prefecture" value="<?php echo $formNames["prefecture"]; ?>">
       </tr>
       <tr> 
-        <td>メールアドレス：<?php echo $_POST["mailaddress"]; ?></td>
-          <input type="hidden" name="mailaddress" value="<?php echo $_POST["mailaddress"]; ?>">
+        <td>メールアドレス：<?php echo $formNames["mailaddress"]; ?></td>
+          <input type="hidden" name="mailaddress" value="<?php echo $formNames["mailaddress"]; ?>">
       </tr>
       <tr> 
         <td>趣味：
-<?php echo $hobbyMusic . ' ' . $hobbyMovie . ' ' . $hobbyOther . ' ' . $hobbyOtherText; ?>
+        <?php echo $formNames["hobbyMusic"] . ' ' . $formNames["hobbyMovie"] . ' ' . $formNames["hobbyOther"] . ' ' . $formNames["hobbyOtherText"]; ?>
         </td>
       </tr>
       <tr> 
-        <td>ご意見：<?php echo $_POST["opinion"]; ?></td>
+        <td>ご意見：<?php echo $formNames["opinion"]; ?></td>
       </tr>
     </table>
     <input type="submit" value="戻る" formaction="issue50_input.php">

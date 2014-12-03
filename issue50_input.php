@@ -4,88 +4,77 @@ $errors = array("lastname" => "" ,"firstname" => "", "gender" => "", "postcode" 
                 "prefecture" => "", "mailaddress" => "", "other" => "");
 
 $formNames = array("lastname" => "", "firstname" => "", "gender" => "", "postcodeFirst" => "", "postcodeSecond" => "", 
-                   "postcodeSecond " => "", "prefecture" => "", "posetcode" => "", "mailaddress" => "", "other" => "",  
+                   "postcodeSecond " => "", "prefecture" => "", "postcode" => "", "mailaddress" => "", "other" => "",  
                    "opinion" => "", "hobbyMusic" => "", "hobbyMovie" => "", "hobbyOther" => "", "hobbyOtherText" => ""); 
 
+$errMessages = array("lastnameErr" => "", "firstnameErr" => "", "genderErr" => "", "postcodeErr" => "", "prefectureErr" => "",
+                     "mailaddressErr" => "", "otherErr" => "", "opinionErr" => "");
 
-$lastnameErr = $firstnameErr = $genderErr = $postcodeErr = $prefectureErr = $posetcodeErr = $mailaddressErr = $otherErr = $opinionErr ="";
-$lastname = $firstname = $gender = $postcodeFirst = $postcodeSecond = "";
-$postcodeSecond  = $prefecture = $posetcode = $mailaddress = $other = "";
-$opinion = $hobbyMusic = $hobbyMovie = $hobbyOther = $hobbyOtherText = "";
+//$lastnameErr = $firstnameErr = $genderErr = $postcodeErr = $prefectureErr $mailaddressErr = $otherErr = $opinionErr ="";
 
+//$formNamesにSESSION値を代入
 foreach ($formNames as $key => $value) {
-    if (!empty($_SESSION[$key])) { $formNames[$key] = $_SESSION[$key]; } 
-   }
-
-if (!empty($_SESSION["lastname"])) { $lastname = $_SESSION["lastname"]; }
-if (!empty($_SESSION["firstname"])) { $firstname = $_SESSION["firstname"]; }
-if (!empty($_SESSION["gender"])) { $gender = $_SESSION["gender"]; }
-if (!empty($_SESSION["postcodeFirst"])) { $postcodeFirst = $_SESSION["postcodeFirst"]; }
-if (!empty($_SESSION["postcodeSecond"])) { $postcodeSecond = $_SESSION["postcodeSecond"]; }
-if (!empty($_SESSION["prefecture"])) { $prefecture = $_SESSION["prefecture"]; }
-if (!empty($_SESSION["mailaddress"])) { $mailaddress = $_SESSION["mailaddress"]; }
-if (!empty($_SESSION["opinion"])) { $opinion =  $_SESSION["opinion"]; }
-if (!empty($_SESSION["hobbyMusic"])) { $hobbyMusic =  $_SESSION["hobbyMusic"]; }
-if (!empty($_SESSION["hobbyMovie"])) { $hobbyMovie =  $_SESSION["hobbyMovie"]; }
-if (!empty($_SESSION["hobbyOther"])) { $hobbyOther =  $_SESSION["hobbyOther"]; }
-if (!empty($_SESSION["hobbyOtherText"])) { $hobbyOtherText =  $_SESSION["hobbyOtherText"]; }
+    if (empty($_SESSION[$key])) {
+        $formNames[$key] = "";
+    } else {
+        $formNames[$key] =  $_SESSION[$key];
+    } 
+}
 
 if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/") {
-    if (empty($lastname)) {
-        $lastnameErr = "姓を入力して下さい．";
+
+    if (empty($formNames["lastname"])) {
+        $errMessages["lastnameErr"] = "姓を入力して下さい．";
     } else {
-        if (strlen($lastname) >= 50){ 
-            $lastnameErr = "姓は50文字以内で入力してください。";
+        if (strlen($formNames["lastname"]) >= 50) { 
+            $errMessages["lastnameErr"] = "姓は50文字以内で入力してください。";
         }
     }
     
-    if (empty($firstname)) {
-        $firstnameErr = "名を入力して下さい．";
+    if (empty($formNames["firstname"])) {
+        $errMessages["firstnameErr"] = "名を入力して下さい．";
     } else {
-        if (strlen($firstname) >= 50){ 
-            $firstnameErr = "名は50文字以内で入力してください。";
+        if (strlen($formNames["firstname"]) >= 50) { 
+            $errMessages["firstnameErr"] = "名は50文字以内で入力してください。";
         }
     }
 
-    if (empty($gender)) {
-        $genderErr = "性別を選択して下さい．";
+    if (empty($formNames["gender"])) {
+        $errMessages["genderErr"] = "性別を選択して下さい．";
     }
 
-    if (empty($postcodeFirst)) {
-        $postcodeErr = "郵便番号を入力してください．";
+    if (empty($formNames["postcodeFirst"])) {
+        $errMessages["postcodeErr"] = "郵便番号を入力してください．";
     } else {
-        if (!preg_match("/^[0-9]+$/", $postcodeFirst)) { 
-            $postcodeErr = "郵便番号を正しく入力してください．" ;
+        if (!preg_match("/^[0-9]+$/", $formNames["postcodeFirst"])) { 
+            $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
         }
     }
 
-    if (empty($postcodeSecond)) {
-        $postcodeErr = "郵便番号を入力してください．";
+    if (empty($formNames["postcodeSecond"])) {
+        $errMessages["postcodeErr"] = "郵便番号を入力してください．";
     } else {
-        if (!preg_match("/^[0-9]+$/", $postcodeSecond)) { 
-            $postcodeErr = "郵便番号を正しく入力してください．" ;
+        if (!preg_match("/^[0-9]+$/", $formNames["postcodeSecond"])) { 
+            $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
         }
     }
 
-    if (($prefecture == "--")) {
-        $prefectureErr = "都道府県を選択してください．";
+    if (($formNames["prefecture"] == "--")) {
+        $errMessages["prefectureErr"] = "都道府県を選択してください．";
     }
 
-    if (empty($mailaddress)) {
-       $mailaddressErr = "メールアドレスを入力してください．";
+    if (empty($formNames["mailaddress"])) {
+        $errMessages["mailaddressErr"] = "メールアドレスを入力してください．";
     } else {
-        if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mailaddress)) {
-            $mailaddressErr = "郵便番号を正しく入力してください。";
+        if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formNames["mailaddress"])) {
+            $errMessages["mailaddressErr"] = "メールアドレスを正しく入力してください。";
        }
     }
 
-    if (empty($hobbyOther) == 0 && empty($hobbyOtherText)) {
-        $otherErr = "その他の詳細を入力してください．";
+    if (empty($formNames["hobbyOther"]) == 0 && empty($formNames["hobbyOtherText"])) {
+        $errMessages["otherErr"] = "その他の詳細を入力してください．";
     }
 
-    if (!empty($opinion)) {
-        $opinion = $_SESSION["opinion"];
-    }
 }
 
 $prefectureNames = array("北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県",
@@ -95,11 +84,11 @@ $prefectureNames = array("北海道", "青森県", "岩手県", "宮城県", "�
                         "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県");
 $selectbox = "";
 foreach ($prefectureNames as &$prefectureName) { 
-          if ($prefectureName == $prefecture) {
-              $selectbox .= '<option value="' . $prefectureName . '"selected>' . $prefectureName . '</option>' . "\n"; 
-          } else {
-              $selectbox .= '<option value="' . $prefectureName . '">' . $prefectureName . '</option>' . "\n"; 
-          }
+    if ($prefectureName == $formNames["prefecture"]) {
+        $selectbox .= '<option value="' . $prefectureName . '"selected>' . $prefectureName . '</option>' . "\n"; 
+    } else {
+        $selectbox .= '<option value="' . $prefectureName . '">' . $prefectureName . '</option>' . "\n"; 
+    }
 }  
 ?>
 
@@ -119,50 +108,48 @@ foreach ($prefectureNames as &$prefectureName) {
       <input type="text" name="lastname" size="10" id="name" value="<?php echo $formNames["lastname"]; ?>">
       <input type="text" name="firstname" size="10" value="<?php echo $formNames["firstname"]; ?>">
       <font color="#ff0000">
-        <?php echo $lastnameErr; ?>
+        <?php echo $errMessages["lastnameErr"]; ?>
       </font> 
       <font color="#ff0000">
-        <?php echo $firstnameErr; ?>
+        <?php echo $errMessages["firstnameErr"]; ?>
       </font> 
       <br>
       <label for="male">性別：</label>
-      男性<input type="radio" name="gender" value="男" id="male" <?php if ($gender == "男") {echo 'checked';} ?>>
-      女性<input type="radio" name="gender" value="女" id="gender" <?php if ($gender == "女") {echo 'checked';} ?>>
+      男性<input type="radio" name="gender" value="男" id="male" <?php if ($formNames["gender"] == "男") { echo 'checked'; } ?>>
+      女性<input type="radio" name="gender" value="女" id="gender" <?php if ($formNames["gender"] == "女") { echo 'checked'; } ?>>
       <font color="#ff0000">
-        <?php echo $genderErr; ?>
+        <?php echo $errMessages["genderErr"]; ?>
       </font> 
       <br>  
       <label for="postcode">郵便番号：</label>
-      <input type="text" name="postcodeFirst" size="3" id="postcode" <?php echo "value=\"$postcodeFirst\""; ?>>
-      - <input type="text" name="postcodeSecond" size="4" id="postcode" <?php echo "value=\"$postcodeSecond\""; ?>>
+      <input type="text" name="postcodeFirst" size="3" id="postcode" value="<?php echo $formNames["postcodeFirst"]; ?>">
+      - <input type="text" name="postcodeSecond" size="4" id="postcode" value="<?php echo $formNames["postcodeSecond"]; ?>">
       <font color="#ff0000">
-        <?php echo $postcodeErr; ?>
+        <?php echo $errMessages["postcodeErr"]; ?>
       </font> 
       <br>
       <label for="prefecture">都道府県：</label>
       <select name="prefecture" id="prefecture">
         <option value="--">--</option>
-      <?php 
-      echo $selectbox;
-      ?>
+      <?php echo $selectbox; ?>
       </select>
       <font color="#ff0000">
-        <?php echo $prefectureErr; ?>
+        <?php echo $errMessages["prefectureErr"]; ?>
       </font> 
       <br>        
       <label for="mailaddress">メールアドレス：</label>
       <input type="text" name="mailaddress" size="40" id="mailaddress" value="<?php echo $formNames["mailaddress"]; ?>"><br>
       <font color="#ff0000">
-        <?php echo $mailaddressErr; ?>
+        <?php echo $errMessages["mailaddressErr"]; ?>
       </font> 
       <br>
       趣味：
       <input type="checkbox" name="hobbyMusic" value="音楽鑑賞" id="music" <?php if ($formNames["hobbyMusic"] == "音楽鑑賞") {echo 'checked';} ?>>音楽鑑賞
-      <input type="checkbox" name="hobbyMovie" value="映画鑑賞" id="movie" <?php  if ($formNames["hobbyMovie"] == "映画鑑賞") {echo 'checked';} ?>>映画鑑賞
+      <input type="checkbox" name="hobbyMovie" value="映画鑑賞" id="movie" <?php if ($formNames["hobbyMovie"] == "映画鑑賞") {echo 'checked';} ?>>映画鑑賞
       <input type="checkbox" name="hobbyOther" value="その他" id="other"  <?php if ($formNames["hobbyOther"] == "その他") {echo 'checked';} ?>>その他
-      <input type="text" name="hobbyOtherText" size="20" id="othertext" <?php echo "value=\"$hobbyOtherText\""; ?>>
+      <input type="text" name="hobbyOtherText" size="20" id="othertext" value="<?php echo $formNames["hobbyOtherText"]; ?>">
       <font color="#ff0000">
-        <?php echo $otherErr;?>
+        <?php echo $errMessages["otherErr"];?>
       </font> 
       <br>
       <label for="opinion">ご意見：</label>
