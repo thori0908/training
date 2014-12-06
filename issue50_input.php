@@ -1,8 +1,5 @@
 <?php session_start(); 
 
-$errors = array("lastname" => "" ,"firstname" => "", "gender" => "", "postcode" => "", 
-                "prefecture" => "", "mailaddress" => "", "other" => "");
-
 $formNames = array("lastname" => "", "firstname" => "", "gender" => "", "postcodeFirst" => "", "postcodeSecond" => "", 
                    "postcodeSecond " => "", "prefecture" => "", "postcode" => "", "mailaddress" => "", "other" => "",  
                    "opinion" => "", "hobbyMusic" => "", "hobbyMovie" => "", "hobbyOther" => "", "hobbyOtherText" => ""); 
@@ -10,9 +7,6 @@ $formNames = array("lastname" => "", "firstname" => "", "gender" => "", "postcod
 $errMessages = array("lastnameErr" => "", "firstnameErr" => "", "genderErr" => "", "postcodeErr" => "", "prefectureErr" => "",
                      "mailaddressErr" => "", "otherErr" => "", "opinionErr" => "");
 
-//$lastnameErr = $firstnameErr = $genderErr = $postcodeErr = $prefectureErr $mailaddressErr = $otherErr = $opinionErr ="";
-
-//$formNamesにSESSION値を代入
 foreach ($formNames as $key => $value) {
     if (empty($_SESSION[$key])) {
         $formNames[$key] = "";
@@ -68,13 +62,12 @@ if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.comput
     } else {
         if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formNames["mailaddress"])) {
             $errMessages["mailaddressErr"] = "メールアドレスを正しく入力してください。";
-       }
+        }
     }
 
-    if (empty($formNames["hobbyOther"]) == 0 && empty($formNames["hobbyOtherText"])) {
+    if (!empty($formNames["hobbyOther"]) && empty($formNames["hobbyOtherText"])) {
         $errMessages["otherErr"] = "その他の詳細を入力してください．";
     }
-
 }
 
 $prefectureNames = array("北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県",

@@ -72,6 +72,9 @@ if (!empty($_POST["hobbyOther"]) && empty($_POST["hobbyOtherText"])) {
     $errorFlags["hobby"] = False;
 }
 
+if (empty($_POST["hobbyOther"]) && !empty($_POST["hobbyOtherText"])) {
+    $_SESSION["hobbyOther"] = $formNames["hobbyOther"] = "その他";
+}
 
 $errorFlag = $errorFlags["lastname"] || $errorFlags["firstname"] || $errorFlags["gender"] || $errorFlags["postcodeFirst"]
            || $errorFlags["postcodeSecond"] || $errorFlags["prefecture"] || $errorFlags["mailaddress"] || $errorFlags["hobby"];
@@ -119,6 +122,7 @@ if ($errorFlag == True) {
       <tr> 
         <td>趣味：
         <?php echo $formNames["hobbyMusic"] . ' ' . $formNames["hobbyMovie"] . ' ' . $formNames["hobbyOther"] . ' ' . $formNames["hobbyOtherText"]; ?>
+
         </td>
       </tr>
       <tr> 
