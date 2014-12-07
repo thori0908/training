@@ -6,7 +6,7 @@ $formNames = array("lastname" => "", "firstname" => "", "gender" => "", "postcod
                    "opinion" => "", "hobbyMusic" => "", "hobbyMovie" => "", "hobbyOther" => "", "hobbyOtherText" => ""); 
 
 //エラーフラグ初期化--------------------
-$errorFlags = array("lastname" => empty($_POST["lastname"]), "firstname" => empty($_POST["firstname"]), "gender" => empty($_POST["gender"]), 
+$isErrors = array("lastname" => empty($_POST["lastname"]), "firstname" => empty($_POST["firstname"]), "gender" => empty($_POST["gender"]), 
                     "postcodeFirst" => empty($_POST["postcodeFirst"]), "postcodeSecond" => empty($_POST["postcodeSecond"]),
                     "prefecture" => empty($_POST["prefecture"]),
                     "mailaddress" => empty($_POST[ "mailaddress"]), "hobby" => empty($_POST["hobby"])); 
@@ -25,62 +25,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-foreach ($errorFlags as $key => $value) {
-    if (!$errorFlags[$key]) {
-        $errorFlags[$key] = False;
+foreach ($isErrors as $key => $value) {
+    if (!$isErrors[$key]) {
+        $isErrors[$key] = False;
     }
 }
 
 //バリデーション-------------------
-if (!$errorFlags["lastname"]) {
+if (!$isErrors["lastname"]) {
     if (strlen($formNames["lastname"]) >= 50) { 
-        $errorFlags["lastname"] = True;
+        $isErrors["lastname"] = True;
     }
 }
 
-if (!$errorFlags["firstname"]) {
+if (!$isErrors["firstname"]) {
     if (strlen($formNames["firstname"]) >= 50) { 
-        $errorFlags["firstname"] = True;
+        $isErrors["firstname"] = True;
     }
 }
 
-if (!$errorFlags["postcodeFirst"]) {
+if (!$isErrors["postcodeFirst"]) {
     if (!preg_match("/^[0-9]+$/", $formNames["postcodeFirst"])) { 
-        $errorFlags["postcodeFirst"] = True;
+        $isErrors["postcodeFirst"] = True;
     }
 }
 
-if (!$errorFlags["postcodeSecond"]) {
+if (!$isErrors["postcodeSecond"]) {
     if (!preg_match("/^[0-9]+$/", $formNames["postcodeSecond"])) { 
-        $errorFlags["postcodeSecond"] = True;
+        $isErrors["postcodeSecond"] = True;
     }
 }
 
 if (($_POST["prefecture"] == "--")) {
-    $errorFlags["prefecture"] = True;
+    $isErrors["prefecture"] = True;
 }
 
-if (!$errorFlags["mailaddress"]) {
+if (!$isErrors["mailaddress"]) {
     if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formNames["mailaddress"])) {
-        $errorFlags["mailaddress"] = True;
+        $isErrors["mailaddress"] = True;
     }
 }
 
 if (!empty($_POST["hobbyOther"]) && empty($_POST["hobbyOtherText"])) {
-    $errorFlags["hobby"] = True;
+    $isErrors["hobby"] = True;
 } else { 
-    $errorFlags["hobby"] = False;
+    $isErrors["hobby"] = False;
 }
 
 if (empty($_POST["hobbyOther"]) && !empty($_POST["hobbyOtherText"])) {
     $_SESSION["hobbyOther"] = $formNames["hobbyOther"] = "その他";
 }
 
-$errorFlag = $errorFlags["lastname"] || $errorFlags["firstname"] || $errorFlags["gender"] || $errorFlags["postcodeFirst"]
-           || $errorFlags["postcodeSecond"] || $errorFlags["prefecture"] || $errorFlags["mailaddress"] || $errorFlags["hobby"];
+$isError = $isErrors["lastname"] || $isErrors["firstname"] || $isErrors["gender"] || $isErrors["postcodeFirst"]
+           || $isErrors["postcodeSecond"] || $isErrors["prefecture"] || $isErrors["mailaddress"] || $isErrors["hobby"];
 
 //flagチェック
-if ($errorFlag == True) {
+if ($isError == True) {
     header("Location:". $_SERVER['HTTP_REFERER']);
 } 
 ?>
