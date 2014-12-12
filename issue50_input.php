@@ -14,62 +14,61 @@ foreach ($formNames as $key => $value) {
         $formNames[$key] =  $_SESSION[$key];
     } 
 }
-
-if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/") {
-
-    if (empty($formNames["lastname"])) {
-        $errMessages["lastnameErr"] = "姓を入力して下さい．";
-    } else {
-        if (strlen($formNames["lastname"]) >= 50) { 
-            $errMessages["lastnameErr"] = "姓は50文字以内で入力してください。";
+if (!empty($_SERVER['HTTP_REFERER'])) { 
+    if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/index.php" ) {
+        if (empty($formNames["lastname"])) {
+            $errMessages["lastnameErr"] = "姓を入力して下さい．";
+        } else {
+            if (strlen($formNames["lastname"]) >= 50) { 
+                $errMessages["lastnameErr"] = "姓は50文字以内で入力してください。";
+            }
         }
-    }
-    
-    if (empty($formNames["firstname"])) {
-        $errMessages["firstnameErr"] = "名を入力して下さい．";
-    } else {
-        if (strlen($formNames["firstname"]) >= 50) { 
-            $errMessages["firstnameErr"] = "名は50文字以内で入力してください。";
+        
+        if (empty($formNames["firstname"])) {
+            $errMessages["firstnameErr"] = "名を入力して下さい．";
+        } else {
+            if (strlen($formNames["firstname"]) >= 50) { 
+                $errMessages["firstnameErr"] = "名は50文字以内で入力してください。";
+            }
         }
-    }
 
-    if (empty($formNames["gender"])) {
-        $errMessages["genderErr"] = "性別を選択して下さい．";
-    }
-
-    if (empty($formNames["postcodeFirst"])) {
-        $errMessages["postcodeErr"] = "郵便番号を入力してください．";
-    } else {
-        if (!preg_match("/^[0-9]+$/", $formNames["postcodeFirst"])) { 
-            $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
+        if (empty($formNames["gender"])) {
+            $errMessages["genderErr"] = "性別を選択して下さい．";
         }
-    }
 
-    if (empty($formNames["postcodeSecond"])) {
-        $errMessages["postcodeErr"] = "郵便番号を入力してください．";
-    } else {
-        if (!preg_match("/^[0-9]+$/", $formNames["postcodeSecond"])) { 
-            $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
+        if (empty($formNames["postcodeFirst"])) {
+            $errMessages["postcodeErr"] = "郵便番号を入力してください．";
+        } else {
+            if (!preg_match("/^[0-9]+$/", $formNames["postcodeFirst"])) { 
+                $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
+            }
         }
-    }
 
-    if (($formNames["prefecture"] == "--")) {
-        $errMessages["prefectureErr"] = "都道府県を選択してください．";
-    }
-
-    if (empty($formNames["mailaddress"])) {
-        $errMessages["mailaddressErr"] = "メールアドレスを入力してください．";
-    } else {
-        if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formNames["mailaddress"])) {
-            $errMessages["mailaddressErr"] = "メールアドレスを正しく入力してください。";
+        if (empty($formNames["postcodeSecond"])) {
+            $errMessages["postcodeErr"] = "郵便番号を入力してください．";
+        } else {
+            if (!preg_match("/^[0-9]+$/", $formNames["postcodeSecond"])) { 
+                $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
+            }
         }
-    }
 
-    if (!empty($formNames["hobbyOther"]) && empty($formNames["hobbyOtherText"])) {
-        $errMessages["otherErr"] = "その他の詳細を入力してください．";
+        if (($formNames["prefecture"] == "--")) {
+            $errMessages["prefectureErr"] = "都道府県を選択してください．";
+        }
+
+        if (empty($formNames["mailaddress"])) {
+            $errMessages["mailaddressErr"] = "メールアドレスを入力してください．";
+        } else {
+            if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formNames["mailaddress"])) {
+                $errMessages["mailaddressErr"] = "メールアドレスを正しく入力してください。";
+            }
+        }
+
+        if (!empty($formNames["hobbyOther"]) && empty($formNames["hobbyOtherText"])) {
+            $errMessages["otherErr"] = "その他の詳細を入力してください．";
+        }
     }
 }
-
 $prefectureNames = array("北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県",
                         "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県",
                         "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県",  
