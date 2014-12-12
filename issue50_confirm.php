@@ -45,13 +45,13 @@ if (!$isErrors["firstname"]) {
 }
 
 if (!$isErrors["postcodeFirst"]) {
-    if (!preg_match("/^[0-9]+$/", $formValues["postcodeFirst"])) { 
+    if (!preg_match("/^[0-9]{3}+$/", $formValues["postcodeFirst"])) { 
         $isErrors["postcodeFirst"] = True;
     }
 }
 
 if (!$isErrors["postcodeSecond"]) {
-    if (!preg_match("/^[0-9]+$/", $formValues["postcodeSecond"])) { 
+    if (!preg_match("/^[0-9]{4}+$/", $formValues["postcodeSecond"])) { 
         $isErrors["postcodeSecond"] = True;
     }
 }

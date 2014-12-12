@@ -13,7 +13,7 @@ foreach ($formValues as $key => $value) {
         $formValues[$key] =  $_SESSION[$key];
     } 
 }
-if (!empty($_POST["return"])) { 
+if (!empty($_SESSION)) { 
     if (empty($formValues["lastname"])) {
         $errMessages["lastnameErr"] = "姓を入力して下さい．";
     } else {
@@ -37,7 +37,7 @@ if (!empty($_POST["return"])) {
     if (empty($formValues["postcodeFirst"])) {
         $errMessages["postcodeErr"] = "郵便番号を入力してください．";
     } else {
-        if (!preg_match("/^[0-9]+$/", $formValues["postcodeFirst"])) { 
+        if (!preg_match("/^[0-9]{3}+$/", $formValues["postcodeFirst"])) { 
             $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
         }
     }
@@ -45,7 +45,7 @@ if (!empty($_POST["return"])) {
     if (empty($formValues["postcodeSecond"])) {
         $errMessages["postcodeErr"] = "郵便番号を入力してください．";
     } else {
-        if (!preg_match("/^[0-9]+$/", $formValues["postcodeSecond"])) { 
+        if (!preg_match("/^[0-9]{4}+$/", $formValues["postcodeSecond"])) { 
             $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
         }
     }
