@@ -33,13 +33,19 @@ foreach ($isErrors as $key => $value) {
 
 //バリデーション-------------------
 if (!$isErrors["lastname"]) {
-    if (strlen($formValues["lastname"]) >= 50) { 
+    if (mb_strlen($formValues["lastname"], "UTF-8") >= 50) { 
+        $isErrors["lastname"] = True;
+    }
+    if (!preg_match("/^[ぁ-んァ-ヶー一-龠]+$/u", $formValues["firstname"])) { 
         $isErrors["lastname"] = True;
     }
 }
 
 if (!$isErrors["firstname"]) {
-    if (strlen($formValues["firstname"]) >= 50) { 
+    if (mb_strlen($formValues["firstname"], "UTF-8") >= 50) { 
+        $isErrors["firstname"] = True;
+    }
+    if (!preg_match("/^[ぁ-んァ-ヶー一-龠]+$/u", $formValues["firstname"])) { 
         $isErrors["firstname"] = True;
     }
 }

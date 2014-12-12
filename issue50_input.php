@@ -17,16 +17,22 @@ if (!empty($_SESSION)) {
     if (empty($formValues["lastname"])) {
         $errMessages["lastnameErr"] = "姓を入力して下さい．";
     } else {
-        if (strlen($formValues["lastname"]) >= 50) { 
+        if (mb_strlen($formValues["lastname"], "UTF-8") >= 50) { 
             $errMessages["lastnameErr"] = "姓は50文字以内で入力してください。";
+        }
+        if (!preg_match("/^[ぁ-んァ-ヶー一-龠]+$/u", $formValues["lastname"])) { 
+            $errMessages["lastnameErr"] = "全角で入力してください。";
         }
     }
     
     if (empty($formValues["firstname"])) {
         $errMessages["firstnameErr"] = "名を入力して下さい．";
     } else {
-        if (strlen($formValues["firstname"]) >= 50) { 
-            $errMessages["firstnameErr"] = "名は50文字以内で入力してください。";
+        if (mb_strlen($formValues["firstname"], "UTF-8") >= 50) { 
+            $errMessages["firstnameErr"] = "姓は50文字以内で入力してください。";
+        }
+        if (!preg_match("/^[ぁ-んァ-ヶー一-龠]+$/u", $formValues["firstname"])) { 
+            $errMessages["firstnameErr"] = "全角で入力してください。";
         }
     }
 
@@ -54,8 +60,7 @@ if (!empty($_SESSION)) {
         $errMessages["prefectureErr"] = "都道府県を選択してください．";
     }
 
-    if (empty($formValues["mailaddress"])) {
-        $errMessages["mailaddressErr"] = "メールアドレスを入力してください．";
+    if (empty($formValues["mailaddress"])) { $errMessages["mailaddressErr"] = "メールアドレスを入力してください．";
     } else {
         if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formValues["mailaddress"])) {
             $errMessages["mailaddressErr"] = "メールアドレスを正しく入力してください。";
