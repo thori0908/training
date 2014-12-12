@@ -1,3 +1,9 @@
+<?php 
+session_start();
+$_SESSION = array();
+session_destroy();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +13,7 @@
 
 <body>
   <h1>フォーム > TOPページ</h1>
-  <a href="issue17_input.html">フォームを入力する</a>
+  <a href="issue50_input.php">フォームを入力する</a>
   <p>Copyright 2014</p>
 </body>
 </html>
