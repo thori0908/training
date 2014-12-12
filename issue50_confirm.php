@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$formNames = array("lastname" => "", "firstname" => "", "gender" => "", "postcodeFirst" => "", "postcodeSecond" => "", 
+$formValues = array("lastname" => "", "firstname" => "", "gender" => "", "postcodeFirst" => "", "postcodeSecond" => "", 
                    "postcodeSecond " => "", "prefecture" => "", "postcode" => "", "mailaddress" => "", "other" => "",  
                    "opinion" => "", "hobbyMusic" => "", "hobbyMovie" => "", "hobbyOther" => "", "hobbyOtherText" => ""); 
 
@@ -12,15 +12,15 @@ $isErrors = array("lastname" => empty($_POST["lastname"]), "firstname" => empty(
                     "mailaddress" => empty($_POST[ "mailaddress"]), "hobby" => empty($_POST["hobby"])); 
 //空白処理・session更新-----------------------------
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    foreach ($formNames as $key => $listValue) {
+    foreach ($formValues as $key => $listValue) {
         if (empty($_POST[$key])) {
             $_SESSION[$key] = "";
-            $formNames[$key] = "";
+            $formValues[$key] = "";
         } else { 
             $_POST[$key] = mb_ereg_replace ('^[\s　]*(.*?)[\s　]*$', '\1', $_POST[$key]);//全角空白置換 
-            $formNames[$key] = trim($_POST[$key], " ");//空白処理 
-            $formNames[$key] = htmlspecialchars($_POST[$key]);  //htmlエスケープ処理
-            $_SESSION[$key] = $formNames[$key];//sessionの更新
+            $formValues[$key] = trim($_POST[$key], " ");//空白処理 
+            $formValues[$key] = htmlspecialchars($_POST[$key]);  //htmlエスケープ処理
+            $_SESSION[$key] = $formValues[$key];//sessionの更新
         }
     }
 }
@@ -33,25 +33,25 @@ foreach ($isErrors as $key => $value) {
 
 //バリデーション-------------------
 if (!$isErrors["lastname"]) {
-    if (strlen($formNames["lastname"]) >= 50) { 
+    if (strlen($formValues["lastname"]) >= 50) { 
         $isErrors["lastname"] = True;
     }
 }
 
 if (!$isErrors["firstname"]) {
-    if (strlen($formNames["firstname"]) >= 50) { 
+    if (strlen($formValues["firstname"]) >= 50) { 
         $isErrors["firstname"] = True;
     }
 }
 
 if (!$isErrors["postcodeFirst"]) {
-    if (!preg_match("/^[0-9]+$/", $formNames["postcodeFirst"])) { 
+    if (!preg_match("/^[0-9]+$/", $formValues["postcodeFirst"])) { 
         $isErrors["postcodeFirst"] = True;
     }
 }
 
 if (!$isErrors["postcodeSecond"]) {
-    if (!preg_match("/^[0-9]+$/", $formNames["postcodeSecond"])) { 
+    if (!preg_match("/^[0-9]+$/", $formValues["postcodeSecond"])) { 
         $isErrors["postcodeSecond"] = True;
     }
 }
@@ -61,7 +61,7 @@ if (($_POST["prefecture"] == "--")) {
 }
 
 if (!$isErrors["mailaddress"]) {
-    if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formNames["mailaddress"])) {
+    if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formValues["mailaddress"])) {
         $isErrors["mailaddress"] = True;
     }
 }
@@ -73,7 +73,7 @@ if (!empty($_POST["hobbyOther"]) && empty($_POST["hobbyOtherText"])) {
 }
 
 if (empty($_POST["hobbyOther"]) && !empty($_POST["hobbyOtherText"])) {
-    $_SESSION["hobbyOther"] = $formNames["hobbyOther"] = "その他";
+    $_SESSION["hobbyOther"] = $formValues["hobbyOther"] = "その他";
 }
 
 $isError = $isErrors["lastname"] || $isErrors["firstname"] || $isErrors["gender"] || $isErrors["postcodeFirst"]
@@ -98,35 +98,35 @@ if ($isError == True) {
     <table>
       <tr>
       <tr>
-        <td>名前：<?php echo $formNames["lastname"] . $formNames["firstname"]; ?></td>
-          <input type="hidden" name="lastname" value="<?php echo $formNames["lastname"]; ?>">
-          <input type="hidden" name="firstname" value="<?php echo $formNames["firstname"]; ?>">
+        <td>名前：<?php echo $formValues["lastname"] . $formValues["firstname"]; ?></td>
+          <input type="hidden" name="lastname" value="<?php echo $formValues["lastname"]; ?>">
+          <input type="hidden" name="firstname" value="<?php echo $formValues["firstname"]; ?>">
       </tr>
       <tr>
-        <td>性別：<?php echo $formNames["gender"]; ?></td>
-          <input type="hidden" name="gender" value="<?php echo $formNames["gender"]; ?>">
+        <td>性別：<?php echo $formValues["gender"]; ?></td>
+          <input type="hidden" name="gender" value="<?php echo $formValues["gender"]; ?>">
       </tr>
       <tr> 
-        <td>郵便番号：<?php echo $formNames["postcodeFirst"] . "-" . $formNames["postcodeSecond"]; ?></td>
-          <input type="hidden" name="postcodeFirst" value="<?php echo $formNames["postcodeFirst"]; ?>">
-          <input type="hidden" name="postcodeSecond" value="<?php echo $formNames["postcodeSecond"]; ?>">
+        <td>郵便番号：<?php echo $formValues["postcodeFirst"] . "-" . $formValues["postcodeSecond"]; ?></td>
+          <input type="hidden" name="postcodeFirst" value="<?php echo $formValues["postcodeFirst"]; ?>">
+          <input type="hidden" name="postcodeSecond" value="<?php echo $formValues["postcodeSecond"]; ?>">
       </tr>
       <tr> 
-        <td>都道府県：<?php echo $formNames["prefecture"]; ?></td>
-          <input type="hidden" name="prefecture" value="<?php echo $formNames["prefecture"]; ?>">
+        <td>都道府県：<?php echo $formValues["prefecture"]; ?></td>
+          <input type="hidden" name="prefecture" value="<?php echo $formValues["prefecture"]; ?>">
       </tr>
       <tr> 
-        <td>メールアドレス：<?php echo $formNames["mailaddress"]; ?></td>
-          <input type="hidden" name="mailaddress" value="<?php echo $formNames["mailaddress"]; ?>">
+        <td>メールアドレス：<?php echo $formValues["mailaddress"]; ?></td>
+          <input type="hidden" name="mailaddress" value="<?php echo $formValues["mailaddress"]; ?>">
       </tr>
       <tr> 
         <td>趣味：
-        <?php echo $formNames["hobbyMusic"] . ' ' . $formNames["hobbyMovie"] . ' ' . $formNames["hobbyOther"] . ' ' . $formNames["hobbyOtherText"]; ?>
+        <?php echo $formValues["hobbyMusic"] . ' ' . $formValues["hobbyMovie"] . ' ' . $formValues["hobbyOther"] . ' ' . $formValues["hobbyOtherText"]; ?>
 
         </td>
       </tr>
       <tr> 
-        <td>ご意見：<?php echo nl2br($formNames["opinion"]); ?></td>
+        <td>ご意見：<?php echo nl2br($formValues["opinion"]); ?></td>
       </tr>
     </table>
     <input type="submit" value="戻る" formaction="issue50_input.php">
