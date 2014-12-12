@@ -6,7 +6,6 @@ $formValues = array("lastname" => "", "firstname" => "", "gender" => "", "postco
 
 $errMessages = array("lastnameErr" => "", "firstnameErr" => "", "genderErr" => "", "postcodeErr" => "", "prefectureErr" => "",
                      "mailaddressErr" => "", "otherErr" => "", "opinionErr" => "");
-
 foreach ($formValues as $key => $value) {
     if (empty($_SESSION[$key])) {
         $formValues[$key] = "";
@@ -14,59 +13,57 @@ foreach ($formValues as $key => $value) {
         $formValues[$key] =  $_SESSION[$key];
     } 
 }
-if (!empty($_SERVER['HTTP_REFERER'])) { 
-    if ($_SERVER['HTTP_REFERER'] != "http://ec2-54-178-213-111.ap-northeast-1.compute.amazonaws.com/index.php" ) {
-        if (empty($formValues["lastname"])) {
-            $errMessages["lastnameErr"] = "姓を入力して下さい．";
-        } else {
-            if (strlen($formValues["lastname"]) >= 50) { 
-                $errMessages["lastnameErr"] = "姓は50文字以内で入力してください。";
-            }
+if (!empty($_POST["return"])) { 
+    if (empty($formValues["lastname"])) {
+        $errMessages["lastnameErr"] = "姓を入力して下さい．";
+    } else {
+        if (strlen($formValues["lastname"]) >= 50) { 
+            $errMessages["lastnameErr"] = "姓は50文字以内で入力してください。";
         }
-        
-        if (empty($formValues["firstname"])) {
-            $errMessages["firstnameErr"] = "名を入力して下さい．";
-        } else {
-            if (strlen($formValues["firstname"]) >= 50) { 
-                $errMessages["firstnameErr"] = "名は50文字以内で入力してください。";
-            }
+    }
+    
+    if (empty($formValues["firstname"])) {
+        $errMessages["firstnameErr"] = "名を入力して下さい．";
+    } else {
+        if (strlen($formValues["firstname"]) >= 50) { 
+            $errMessages["firstnameErr"] = "名は50文字以内で入力してください。";
         }
+    }
 
-        if (empty($formValues["gender"])) {
-            $errMessages["genderErr"] = "性別を選択して下さい．";
-        }
+    if (empty($formValues["gender"])) {
+        $errMessages["genderErr"] = "性別を選択して下さい．";
+    }
 
-        if (empty($formValues["postcodeFirst"])) {
-            $errMessages["postcodeErr"] = "郵便番号を入力してください．";
-        } else {
-            if (!preg_match("/^[0-9]+$/", $formValues["postcodeFirst"])) { 
-                $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
-            }
+    if (empty($formValues["postcodeFirst"])) {
+        $errMessages["postcodeErr"] = "郵便番号を入力してください．";
+    } else {
+        if (!preg_match("/^[0-9]+$/", $formValues["postcodeFirst"])) { 
+            $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
         }
+    }
 
-        if (empty($formValues["postcodeSecond"])) {
-            $errMessages["postcodeErr"] = "郵便番号を入力してください．";
-        } else {
-            if (!preg_match("/^[0-9]+$/", $formValues["postcodeSecond"])) { 
-                $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
-            }
+    if (empty($formValues["postcodeSecond"])) {
+        $errMessages["postcodeErr"] = "郵便番号を入力してください．";
+    } else {
+        if (!preg_match("/^[0-9]+$/", $formValues["postcodeSecond"])) { 
+            $errMessages["postcodeErr"] = "郵便番号を正しく入力してください．";
         }
+    }
 
-        if (($formValues["prefecture"] == "--")) {
-            $errMessages["prefectureErr"] = "都道府県を選択してください．";
-        }
+    if (($formValues["prefecture"] == "--")) {
+        $errMessages["prefectureErr"] = "都道府県を選択してください．";
+    }
 
-        if (empty($formValues["mailaddress"])) {
-            $errMessages["mailaddressErr"] = "メールアドレスを入力してください．";
-        } else {
-            if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formValues["mailaddress"])) {
-                $errMessages["mailaddressErr"] = "メールアドレスを正しく入力してください。";
-            }
+    if (empty($formValues["mailaddress"])) {
+        $errMessages["mailaddressErr"] = "メールアドレスを入力してください．";
+    } else {
+        if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formValues["mailaddress"])) {
+            $errMessages["mailaddressErr"] = "メールアドレスを正しく入力してください。";
         }
+    }
 
-        if (!empty($formValues["hobbyOther"]) && empty($formValues["hobbyOtherText"])) {
-            $errMessages["otherErr"] = "その他の詳細を入力してください．";
-        }
+    if (!empty($formValues["hobbyOther"]) && empty($formValues["hobbyOtherText"])) {
+        $errMessages["otherErr"] = "その他の詳細を入力してください．";
     }
 }
 $prefectureNames = array("北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県",

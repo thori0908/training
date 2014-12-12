@@ -129,7 +129,7 @@ if ($isError == True) {
         <td>ご意見：<?php echo nl2br($formValues["opinion"]); ?></td>
       </tr>
     </table>
-    <input type="submit" value="戻る" formaction="issue50_input.php">
+    <input name="return"  type="submit" value="戻る" formaction="issue50_input.php">
     <br>
     <input type="submit" value="送信" formaction="issue17_complete.html">
   </form>
