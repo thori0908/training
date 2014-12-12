@@ -56,11 +56,12 @@ if (!empty($_SESSION)) {
         }
     }
 
-    if (($formValues["prefecture"] == "--")) {
+    if ($formValues["prefecture"] == "--") {
         $errMessages["prefectureErr"] = "都道府県を選択してください．";
     }
 
-    if (empty($formValues["mailaddress"])) { $errMessages["mailaddressErr"] = "メールアドレスを入力してください．";
+    if (empty($formValues["mailaddress"])) { 
+        $errMessages["mailaddressErr"] = "メールアドレスを入力してください．";
     } else {
         if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $formValues["mailaddress"])) {
             $errMessages["mailaddressErr"] = "メールアドレスを正しく入力してください。";
