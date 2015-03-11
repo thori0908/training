@@ -1,9 +1,18 @@
 <?php
-  var_dump($_POST['lastname']);
 
-  $pdo = new PDO("mysql:dbname=issue28;host=127.0.0.1", "root");
-  $st = $pdo->prepare("INSERT INTO users (last_name, first_name) VALUES (?, ?)");
-  $st->execute(array($_POST['lastname'], $_POST['firstname']));
+var_dump ($_POST);
+$pdo = new PDO("mysql:dbname=issue28;host=127.0.0.1", "root");
+
+$st = $pdo->prepare("select pref_id from prefectures where pref_name='?'");
+$st->query(array($_POST['prefecture']));
+var_dump ($st);
+
+var_dump($_POST['prefecture']);
+var_dump($prefid);
+$st1 = $pdo->prepare("INSERT INTO users (last_name, first_name, pref_id, updated_at) VALUES (?, ?, ?, ?)");
+$st1->execute(array($_POST['lastname'], $_POST['firstname'], $prefid, $updated_at));
+
+
 ?>
 
 <!DOCTYPE html>
