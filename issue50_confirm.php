@@ -11,19 +11,21 @@ $isErrors = array("lastname" => empty($_POST["lastname"]), "firstname" => empty(
                     "prefecture" => empty($_POST["prefecture"]),
                     "mailaddress" => empty($_POST[ "mailaddress"]), "hobby" => empty($_POST["hobby"])); 
 //空白処理・session更新-----------------------------
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    foreach ($formValues as $key => $listValue) {
-        if (empty($_POST[$key])) {
-            $_SESSION[$key] = "";
-            $formValues[$key] = "";
-        } else { 
-            $_POST[$key] = mb_ereg_replace ('^[\s　]*(.*?)[\s　]*$', '\1', $_POST[$key]);//全角空白置換 
-            $formValues[$key] = trim($_POST[$key], " ");//空白処理 
-            $formValues[$key] = htmlspecialchars($_POST[$key]);  //htmlエスケープ処理
-            $_SESSION[$key] = $formValues[$key];//sessionの更新
-        }
-    }
-}
+//if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//    foreach ($formValues as $key => $listValue) {
+//        if (empty($_POST[$key])) {
+//            $_SESSION[$key] = "";
+ //           $formValues[$key] = "";
+//        } else { 
+//            $_POST[$key] = mb_ereg_replace ('^[\s　]*(.*?)[\s　]*$', '\1', $_POST[$key]);//全角空白置換 
+//            $formValues[$key] = trim($_POST[$key], " ");//空白処理 
+//            $formValues[$key] = htmlspecialchars($_POST[$key]);  //htmlエスケープ処理
+//            $_SESSION[$key] = $formValues[$key];//sessionの更新
+//        }
+//    }
+//}
+//
+$user = new User($_POST[$key]);
 
 foreach ($isErrors as $key => $value) {
     if (!$isErrors[$key]) {
@@ -91,4 +93,3 @@ if ($isError == True) {
 } 
 
 include 'issue30_confirm.html.php';
-?>

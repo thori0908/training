@@ -87,4 +87,3 @@ foreach ($prefectureNames as &$prefectureName) {
 }  
 
 include 'issue30_input.html.php';
-?>

@@ -10,32 +10,34 @@
   <form action="issue50_input.php" method="POST">
     <table>
       <tr>
-      <tr>
-        <td>名前：<?php echo $formValues["lastname"] . $formValues["firstname"]; ?></td>
+        <td>名前：<?php echo $formValues["lastname"] . $formValues["firstname"]; ?>
           <input type="hidden" name="lastname" value="<?php echo $formValues["lastname"]; ?>">
           <input type="hidden" name="firstname" value="<?php echo $formValues["firstname"]; ?>">
+        </td>
       </tr>
       <tr>
-        <td>性別：<?php echo $formValues["gender"]; ?></td>
+        <td>性別：<?php echo $formValues["gender"]; ?>
           <input type="hidden" name="gender" value="<?php echo $formValues["gender"]; ?>">
       </tr>
       <tr> 
-        <td>郵便番号：<?php echo $formValues["postcodeFirst"] . "-" . $formValues["postcodeSecond"]; ?></td>
+        <td>郵便番号：<?php echo $formValues["postcodeFirst"] . "-" . $formValues["postcodeSecond"]; ?>
           <input type="hidden" name="postcodeFirst" value="<?php echo $formValues["postcodeFirst"]; ?>">
           <input type="hidden" name="postcodeSecond" value="<?php echo $formValues["postcodeSecond"]; ?>">
+        </td>
       </tr>
       <tr> 
         <td>都道府県：<?php echo $formValues["prefecture"]; ?></td>
           <input type="hidden" name="prefecture" value="<?php echo $formValues["prefecture"]; ?>">
+        </td>
       </tr>
       <tr> 
         <td>メールアドレス：<?php echo $formValues["mailaddress"]; ?></td>
           <input type="hidden" name="mailaddress" value="<?php echo $formValues["mailaddress"]; ?>">
+        </td>
       </tr>
       <tr> 
         <td>趣味：
-        <?php echo $formValues["hobbyMusic"] . ' ' . $formValues["hobbyMovie"] . ' ' . $formValues["hobbyOther"] . ' ' . $formValues["hobbyOtherText"]; ?>
-
+          <?php echo $formValues["hobbyMusic"] . ' ' . $formValues["hobbyMovie"] . ' ' . $formValues["hobbyOther"] . ' ' . $formValues["hobbyOtherText"]; ?>
         </td>
       </tr>
       <tr> 
