@@ -1,4 +1,5 @@
 <?php
+require('User.php');
 session_start();
 
 $formValues = array("lastname" => "", "firstname" => "", "gender" => "", "postcodeFirst" => "", "postcodeSecond" => "", 
@@ -25,7 +26,19 @@ $isErrors = array("lastname" => empty($_POST["lastname"]), "firstname" => empty(
 //    }
 //}
 //
-$user = new User($_POST[$key]);
+$user = new User($_POST);
+//var_dump($user);
+
+$user_array = (array) $user;
+foreach($user_array as $key =>$value) {
+    if (empty($user_array[$key])) { 
+        $_SESSION[$key] = "";
+    } else { 
+        $_POST[$key] = mb_ereg_replace ('^[\s　]*(.*?)[\s　]*$', '\1', $user_array[$key]);//全角空白置換 
+        $_SESSION[$key] = $user_array[$key];//sessionの更新
+    }
+}
+var_dump($_SESSION);
 
 foreach ($isErrors as $key => $value) {
     if (!$isErrors[$key]) {
