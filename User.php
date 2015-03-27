@@ -89,7 +89,7 @@ class User {
                            "postcodeSecond" => $this->postcodeSecond,
                            "prefecture"     => $this->prefecture,
                            "mailaddress"    => $this->mailaddress,
-                           "gender"         => $this->other,
+                           "other"          => $this->other,
                            "opinion"        => $this->opinion,
                            "hobbyMusic"     => $this->hobbyMusic,
                            "hobbyMovie"     => $this->hobbyMovie,
