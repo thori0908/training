@@ -24,7 +24,7 @@ class User {
             $this->firstname      = $this->escapeFormValue($post["firstname"]);
         }
 
-        $this->fullname = $this->fullname($this->lastname, $this->firstname);
+        $this->fullname = sprintf('%s %s',$this->lastname, $this->firstname);
 
         if (!empty($post["gender"])) {
             $this->gender         = $this->escapeFormValue($post["gender"]);
@@ -70,11 +70,9 @@ class User {
         }
     }
 
-    public function escapeFormValue($formValue) {
+    private function escapeFormValue($formValue) {
         $modifiedValue;
-        if (empty($formValue)) { 
-            $modifiedValue = "";
-        } else { 
+        if (!empty($formValue)) {
             $formValue = mb_ereg_replace('^[\s　]*(.*?)[\s　]*$', '\1', $formValue);//全角空白置換 
             $modifiedValue = trim($formValue, " ");//空白処理 
             $modifiedValue = htmlspecialchars($formValue);  //htmlエスケープ処理
@@ -82,8 +80,22 @@ class User {
         return $modifiedValue;
     }
    
-    public function fullname($lastname, $firstname) {
-       return sprintf('%s %s', $lastname, $firstname);
+    public function toArray() {
+        $formArray = array("fullname"       => $this->fullname,
+                           "lastname"       => $this->lastname,
+                           "firstname"      => $this->firstname,
+                           "gender"         => $this->gender,
+                           "postcodeFirst"  => $this->postcodeFirst,
+                           "postcodeSecond" => $this->postcodeSecond,
+                           "prefecture"     => $this->prefecture,
+                           "mailaddress"    => $this->mailaddress,
+                           "gender"         => $this->other,
+                           "opinion"        => $this->opinion,
+                           "hobbyMusic"     => $this->hobbyMusic,
+                           "hobbyMovie"     => $this->hobbyMovie,
+                           "hobbyOther"     => $this->hobbyOther,
+                           "hobbyOtherText" => $this->hobbyOtherText);
+        return $formArray; 
     }
 
     // getter
