@@ -68,4 +68,18 @@ class ErrMessage {
     public function getErrMessages() {
         return $this->errMessages;
     }
+
+    public function getIsError() {
+        $isErrors = array("lastname" => "", "firstname" => "", "gender" => "", "postcode" => "", 
+                             "prefecture" => "", "mailaddress" => "", "hobby" => "");
+        foreach ($this-> errMessages as $key=>$value) {
+            if (!empty($value)) { 
+                $isErrors[$key] = True;
+            }
+        }
+
+        $isError = $isErrors["lastname"] || $isErrors["firstname"] || $isErrors["gender"] || $isErrors["postcode"]
+                || $isErrors["prefecture"] || $isErrors["mailaddress"] || $isErrors["hobby"];
+        return $isError;
+    }
 }

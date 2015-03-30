@@ -1,6 +1,5 @@
 <?php 
 class User {
-    private $fullname = "";
     private $lastname = "";
     private $firstname = "";
     private $gender = "";
@@ -23,8 +22,6 @@ class User {
         if (!empty($post["firstname"])) {
             $this->firstname      = $this->escapeFormValue($post["firstname"]);
         }
-
-        $this->fullname = sprintf('%s %s',$this->lastname, $this->firstname);
 
         if (!empty($post["gender"])) {
             $this->gender         = $this->escapeFormValue($post["gender"]);
@@ -75,14 +72,13 @@ class User {
         if (!empty($formValue)) {
             $formValue = mb_ereg_replace('^[\s　]*(.*?)[\s　]*$', '\1', $formValue);//全角空白置換 
             $modifiedValue = trim($formValue, " ");//空白処理 
-            $modifiedValue = htmlspecialchars($formValue);  //htmlエスケープ処理
+            $modifiedValue = htmlspecialchars($modifiedValue);  //htmlエスケープ処理
         }
         return $modifiedValue;
     }
    
     public function toArray() {
-        $formArray = array("fullname"       => $this->fullname,
-                           "lastname"       => $this->lastname,
+        $formArray = array("lastname"       => $this->lastname,
                            "firstname"      => $this->firstname,
                            "gender"         => $this->gender,
                            "postcodeFirst"  => $this->postcodeFirst,
@@ -100,7 +96,7 @@ class User {
 
     // getter
     public function getFullname() {
-        return $this->fullname; 
+        return sprintf('%s %s', $this->lastname, $this->firstname);
     }
 
     public function getLastname() {

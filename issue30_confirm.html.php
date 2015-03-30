@@ -10,7 +10,7 @@
   <form action="issue50_input.php" method="POST">
     <table>
       <tr>
-        <td>名前：<?php echo $user_array["fullname"]; ?>
+        <td>名前：<?php echo $user->getFullname(); ?>
           <input type="hidden" name="lastname" value="<?php echo $user_array["lastname"]; ?>">
           <input type="hidden" name="firstname" value="<?php echo $user_array["firstname"]; ?>">
         </td>
