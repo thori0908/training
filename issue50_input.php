@@ -25,7 +25,7 @@ $prefectureNames = array("北海道", "青森県", "岩手県", "宮城県", "�
 $selectbox = "";
 foreach ($prefectureNames as &$prefectureName) { 
     $selected = ($prefectureName == $user_array["prefecture"]) ? 'selected' : '';
-    $selectbox .= '<option value="' . $prefectureName . $selected . '"'. $selected .'>' . $prefectureName . '</option>' . "\n"; 
+    $selectbox .= '<option value="' . $prefectureName . '"'. $selected .'>' . $prefectureName . '</option>' . "\n"; 
 }
 
 include 'issue30_input.html.php';
