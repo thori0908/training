@@ -23,4 +23,3 @@ try {
 $pdo = null;
 
 include 'issue30_complete.html.php';
-?>
