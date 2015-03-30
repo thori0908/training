@@ -137,7 +137,13 @@ if ($isError == True) {
     </table>
     <input name="return"  type="submit" value="戻る" formaction="issue50_input.php">
     <br>
-    <input type="submit" value="送信" formaction="issue17_complete.html">
+  </form>
+  <form action="issue29_complete.php" method="POST">
+    <input type="hidden" name="lastname" value="<?php echo $formValues["lastname"]; ?>">
+    <input type="hidden" name="firstname" value="<?php echo $formValues["firstname"]; ?>">
+    <input type="hidden" name="mailaddress" value="<?php echo $formValues["mailaddress"]; ?>">
+    <input type="hidden" name="prefecture" value="<?php echo $formValues["prefecture"]; ?>">
+    <input type="submit" value="送信" formaction="issue29_complete.php">
   </form>
   <p>Copyright 2014</p>
 </body>
