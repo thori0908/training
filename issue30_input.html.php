@@ -6,7 +6,10 @@
 </head>
 
 <body>
-  <h1>フォーム > 入力</h1>
+  <header>
+    <h1>フォーム > 入力</h1>
+  </header>
+  <section>
   <form action="issue50_confirm.php" method="POST">
     <fieldset>
       <legend>フォーム</legend>
@@ -63,6 +66,9 @@
       <input type="submit" value="確認" id="opinion"><br>
     </fieldset>
   </form> 
-  <p>Copyright 2014</p>
+  </section>
+  <footer>
+    <p>Copyright 2014</p>
+  </footer>
 </body>
 </html>
