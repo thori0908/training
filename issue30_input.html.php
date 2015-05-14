@@ -3,8 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <style type="text/css">
-    h1    {font-size:30px; margin:10px; background-color:#009FFF}
-    label {background-color:#FF3000}
+    h1 {
+      font-size:30px; 
+      margin:10 10 0 0px; 
+      background-color:#009FFF;
+    }
+
+    label {
+      background-color:#FF3000;
+    }
   </style>
   <title>issue50</title>
 </head>
