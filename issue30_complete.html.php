@@ -11,7 +11,7 @@
     <h1 style="font-size:30px; margin-top:10px; margin-bottom:10px; background-color:#009FFF">フォーム > 完了</h1>
   </header>
   <section>
-    <p>応募しました</p>
+    <p style="text-shadow: 1px 1px 1px #000;">応募しました</p>
   </section>
   <footer>
     <a href="index.php">TOPページへ</a>
