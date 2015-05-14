@@ -8,7 +8,7 @@
 
 <body>
   <header>
-    <h1 style="font-size:30px; margin-top:10px; margin-bottom:10px;">フォーム > 確認</h1>
+    <h1 style="font-size:30px; margin-top:10px; margin-bottom:10px; background-color:#009FFF">フォーム > 確認</h1>
   </header>
   <section>
     <form action="issue50_input.php" method="POST">
