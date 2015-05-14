@@ -21,6 +21,7 @@
         <tr>
           <td>性別：<?php echo $user_array["gender"]; ?>
             <input type="hidden" name="gender" value="<?php echo $user_array["gender"]; ?>">
+          </td>
         </tr>
         <tr> 
           <td>郵便番号：<?php echo $user_array["postcodeFirst"] . "-" . $user_array["postcodeSecond"]; ?>
