@@ -12,41 +12,41 @@
   </header>
   <section>
     <form action="issue50_input.php" method="POST">
-      <table>
+      <table style="width: 100%; border-collapse: sepate;">
         <tr>
-          <td>名前：<?php echo $user->getFullname(); ?>
+          <td style="border: 1px solid #b9b9b9;">名前：<?php echo $user->getFullname(); ?>
             <input type="hidden" name="lastname" value="<?php echo $user_array["lastname"]; ?>">
             <input type="hidden" name="firstname" value="<?php echo $user_array["firstname"]; ?>">
           </td>
         </tr>
         <tr>
-          <td>性別：<?php echo $user_array["gender"]; ?>
+          <td style="border: 1px solid #b9b9b9;">性別：<?php echo $user_array["gender"]; ?>
             <input type="hidden" name="gender" value="<?php echo $user_array["gender"]; ?>">
           </td>
         </tr>
         <tr> 
-          <td>郵便番号：<?php echo $user_array["postcodeFirst"] . "-" . $user_array["postcodeSecond"]; ?>
+          <td style="border: 1px solid #b9b9b9;">郵便番号：<?php echo $user_array["postcodeFirst"] . "-" . $user_array["postcodeSecond"]; ?>
             <input type="hidden" name="postcodeFirst" value="<?php echo $user_array["postcodeFirst"]; ?>">
             <input type="hidden" name="postcodeSecond" value="<?php echo $user_array["postcodeSecond"]; ?>">
           </td>
         </tr>
         <tr> 
-          <td>都道府県：<?php echo $user_array["prefecture"]; ?></td>
+          <td style="border: 1px solid #b9b9b9;">都道府県：<?php echo $user_array["prefecture"]; ?></td>
             <input type="hidden" name="prefecture" value="<?php echo $user_array["prefecture"]; ?>">
           </td>
         </tr>
         <tr> 
-          <td>メールアドレス：<?php echo $user_array["mailaddress"]; ?></td>
+          <td style="border: 1px solid #b9b9b9;">メールアドレス：<?php echo $user_array["mailaddress"]; ?></td>
             <input type="hidden" name="mailaddress" value="<?php echo $user_array["mailaddress"]; ?>">
           </td>
         </tr>
         <tr> 
-          <td>趣味：
+          <td style="border: 1px solid #b9b9b9;">趣味：
             <?php echo $user_array["hobbyMusic"] . ' ' . $user_array["hobbyMovie"] . ' ' . $user_array["hobbyOther"] . ' ' . $user_array["hobbyOtherText"]; ?>
           </td>
         </tr>
         <tr> 
-          <td>ご意見：<?php echo $user_array["opinion"]; ?></td>
+          <td style="border: 1px solid #b9b9b9;">ご意見：<?php echo $user_array["opinion"]; ?></td>
         </tr>
       </table>
       <input name="return"  type="submit" value="戻る" formaction="issue50_input.php">
