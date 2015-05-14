@@ -2,12 +2,13 @@
 <html>  
 <head>
   <meta charset="UTF-8">
+  <meta name="Content-Style-Type" content="text/css">
   <title>issue50</title>
 </head>
 
 <body>
   <header>
-    <h1>フォーム > 入力</h1>
+    <h1 style="margin-top:10px; margin-bottom:10px;">フォーム > 入力</h1>
   </header>
   <section>
     <form action="issue50_confirm.php" method="POST">

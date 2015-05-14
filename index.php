@@ -8,12 +8,13 @@ session_destroy();
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="Content-Style-Type" content="text/css">
   <title>issue17</title>
 </head>
 
 <body>
   <header>
-    <h1>フォーム > TOPページ</h1>
+    <h1 style="margin-top:10px; margin-bottom:10px;">フォーム > TOPページ</h1>
   </header>
   <section>
     <a href="issue50_input.php">フォームを入力する</a>
