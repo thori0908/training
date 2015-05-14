@@ -8,7 +8,7 @@
 
 <body>
   <header>
-    <h1 style="margin-top:10px; margin-bottom:10px;">フォーム > 完了</h1>
+    <h1 style="font-size:30px; margin-top:10px; margin-bottom:10px;">フォーム > 完了</h1>
   </header>
   <section>
     <p>応募しました</p>

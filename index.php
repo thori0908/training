@@ -14,7 +14,7 @@ session_destroy();
 
 <body>
   <header>
-    <h1 style="margin-top:10px; margin-bottom:10px;">フォーム > TOPページ</h1>
+    <h1 style="font-size:30px; margin-top:10px; margin-bottom:10px;">フォーム > TOPページ</h1>
   </header>
   <section>
     <a href="issue50_input.php">フォームを入力する</a>
