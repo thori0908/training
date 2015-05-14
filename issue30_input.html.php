@@ -2,6 +2,17 @@
 <html>  
 <head>
   <meta charset="UTF-8">
+  <style type="text/css">
+    h1 {
+      font-size:30px; 
+      margin:10 10 0 0px; 
+      background-color:#009FFF;
+    }
+
+    label {
+      background-color:#FF3000;
+    }
+  </style>
   <title>issue50</title>
 </head>
 
@@ -52,7 +63,7 @@
           <?php echo $errMessages["mailaddress"]; ?>
         </font> 
         <br>
-        趣味：
+        <label for="hobby"> 趣味：</label>
         <input type="checkbox" name="hobbyMusic" value="音楽鑑賞" id="music" <?php if ($user_array["hobbyMusic"] == "音楽鑑賞") {echo 'checked';} ?>>音楽鑑賞
         <input type="checkbox" name="hobbyMovie" value="映画鑑賞" id="movie" <?php if ($user_array["hobbyMovie"] == "映画鑑賞") {echo 'checked';} ?>>映画鑑賞
         <input type="checkbox" name="hobbyOther" value="その他" id="other"  <?php if ($user_array["hobbyOther"] == "その他") {echo 'checked';} ?>>その他

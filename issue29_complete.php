@@ -13,7 +13,7 @@ try {
     $st->execute (array($_POST['prefecture']));
     $prefid = $st->fetch(PDO::FETCH_ASSOC);
 
-    $st1 = $pdo->prepare("INSERT INTO users (last_name, first_name, pref_id, email) VALUES (?, ?, ?, ?)");
+    $st1 = $pdo->prepare("INSERT INTO users (lastname, firstname, pref_id, mailaddress) VALUES (?, ?, ?, ?)");
     $st1->execute (array($_POST['lastname'], $_POST['firstname'], $prefid["pref_id"], $_POST['mailaddress']));
 } catch (PDOException $e) {
     echo 'Connection failed2: ' . $e->getMessage();

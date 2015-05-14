@@ -2,6 +2,17 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <style type="text/css">
+    h1 {
+      font-size:30px; 
+      margin:10 10 0 0px; 
+      background-color:#009FFF;
+    }
+
+    #message {
+      font-weight:bold;
+    }
+  </style>
   <title>issue17</title>
 </head>
 
@@ -10,7 +21,7 @@
     <h1>フォーム > 完了</h1>
   </header>
   <section>
-    <p>応募しました</p>
+    <p id="message">応募しました</p>
   </section>
   <footer>
     <a href="index.php">TOPページへ</a>
