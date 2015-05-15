@@ -1,0 +1,24 @@
+h1 {
+  font-size: 30px; 
+  margin: 10px 0px 10px 0px; 
+  background-color: #009FFF;
+}
+
+table {
+  width: 100%; 
+  border-collapse: separate;
+}
+
+td {
+  border: 1px solid #b9b9b9;
+}
+
+/*確認画面の項目*/
+label {
+  background-color: #FF3000;
+}
+
+/* 完了画面 応募しました */
+#message {
+  font-weight: bold;
+}

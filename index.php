@@ -8,13 +8,7 @@ session_destroy();
 <html>
 <head>
   <meta charset="UTF-8">
-  <style type="text/css">
-    h1 {
-      font-size:30px; 
-      margin:10 10 0 0px; 
-      background-color:#009FFF;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="form.css" media="all">
   <title>issue17</title>
 </head>
 
