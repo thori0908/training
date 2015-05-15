@@ -2,22 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <style type="text/css">
-    h1 {
-      font-size:30px; 
-      margin:10 10 0 0px; 
-      background-color:#009FFF;
-    }
-
-    table {
-      width: 100%; 
-      border-collapse: separate;
-    }
-
-    td {
-      border: 1px solid #b9b9b9;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="form.css" media="all">
   <title>issue17</title>
 </head>
 
